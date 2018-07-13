@@ -1,0 +1,41 @@
+passwd -l users //锁定用户登陆
+passwd -u users //解锁用户
+passwd -S users  //查看用户
+vim /etc/sudoesr //修改sudoer
+chage -L users //查看用户信息
+chage -E 2012-01-01   users //修改用使用时间
+/etc/login.defs //用户默认信息
+chattr +i //给文件加锁
+chattr -i //解除文家的锁`
+chattr +a //锁定文件只允许追加
+chattr -a //解除锁定
+------------------------------------------------->
+/etc/sudoers  //设置用户组权限
+username ALL=(ALL) /jobs _____>  /usr/sbin/useradd,!/usr/sbin/useradd * root  //修改用户权限
+sudo -l //列出权限
+visudo
+Defaults  logfile="/var/log/sudo" //抓取日志
+<----------------------------------------------------------
+/etc/ssh/sshd_config   //服务端配置文件
+permitROOTLogin  //root登陆权限
+permitEmpypasswords no //允许空密码登陆
+passwordAuthentication  //使用密码登陆权限
+MaxAuthTries  //最大登陆次数
+UserDNS  //是否解析客户端机器
+LoginGraceTime  //设置登陆超时
+MaxAuthTries //每次连接认证最多次数
+Protocol   //去掉SSH协议V1
+Allowusers username@192.168.4.0/24  //允许登陆名单
+DenyUsers usernam  //禁止用户名单
+AllowGroup groupname  //允许组名单
+DenyGroup groupname  //拒绝组名单
+authorized_keys  //公钥存放文件
+id_rsa  //私钥匙
+id_rsa.pub  //公钥文件
+/etc/issue  //登陆界面显示
+rwx 针对用户
+SELinux
+对软件规则
+chcon -t xyz a.html //改标签 
+resorecon  //从置标签
+

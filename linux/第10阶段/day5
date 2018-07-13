@@ -1,0 +1,47 @@
+replSet  //启动集群服务
+mongo --host 192.168.4.11 -port 27051  //链接
+---------------------------------<配子文件>
+dapath=/usr/local/mongo/data/db
+fork=true  
+logpath=/usr/local/mongo/data/db
+logappend=true
+bind_ip=192.168.4.10
+port=27055
+replSet=ser
+----------------<创建主从配置>
+config={_id:"ser1",
+members:[
+{_id:0,host:"192.168.4.11:27051"},
+{_id:2,host:"192.168.4.12:27052"},
+{_id:3,host:"192.168.4.13:27053"}
+]}
+-----------------------------------
+>rs.initiate(config)  //启动服务
+>re.status()   //查看状态信息  primary ->  主库    secondary -> 从库
+>>db.getMongo().setSlaveOk() //授权从库查看那功能
+db.name.insert()  //向表插入纪律
+db.name.insertMany()  //插入多条信息
+findOne()  //显示第一行
+find({name:1},{name:1})  //显示条件输出哪些列
+find({name:"lisi"},{name,0})  //显示name："lisi"你一列不显示名字字段 
+find().limit(3)  //显示查找结果的前三行
+find().skip(3)   //跳过前3行的查找
+find().sort(1)  //排序生序
+find().sort({age:-1})  //将序
+find({age:10,name:"lisi"})  //输出所有age:10和name:"lisi"的所有列
+db.user.find({name:"lisi"},{age:0})skip(2).limit(2)   //跳过前两行再第三第四行中进行查询name:"lisi"字段值匹配输出正行除age外的
+db.usrt.find({name:/^a/})  //使用正则表达式
+$gt &lt $eq $ge $le
+db.name.find({age:{$gte:x}})  //大于等于
+db.name.find({name,/^a/}) //显示以name以a开头的字段
+db.name.update(age:{$lte:30},{name:"xiugaidel"})  //修改条件匹配的字段中的值并且删除其他字段
+db.name.update(age:{$lte:3},{$set:{name:"xiugaidel"}},false,true)   //修改当前字段并且将保留其他字段值
+db.name.update({age:{$gte:12}},{$unset:{password:"F"}})  //删除当前条件下的password字段值
+db.anme.update({nage:{$gte:11}},{%inc:{uid:-1}}) //自减1可修改值
+db.anme.update({age:{$gte:11}},{%inc:{uid:1}}) //自增1可修改值
+db.name.update{{age:{$gte:11}},($puch:{name:"puch"}}) //给组添加
+db.name.update({age:{$gte:11}},{$addToSet:{name:"putch"}}) //给数组添加一个元素不覆盖不报错
+date.name.remove({})  //删除文档索引保留
+dae.name.remove({age:10})  //根据条件删除
+
+

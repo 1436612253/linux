@@ -1,0 +1,67 @@
+openssl genrsa > name.sky //私钥匙
+openssl req -new -x509 -key name.key>,y.crt //公匙
+auth_basic "name";
+auth_basic_user_file "passwd"; -> hlpasswd /path name > passwd
+--with-http_ssl_module //添加模块
+[端口][ip地址][域名] //网站访问基于这三种形式
+静态网站（为经过条用）
+动态网站（使用程序条用）
+mariadb  //数据库客户端mysql
+mariadb-server //服务端
+mariadb-devel //
+php  
+php-mysql //连接数库软件
+php-fpm-5.4.16.42.el7.x86_64.rpm //软件借口
+php-fpm 端口是 9000
+mariadb   ->  port=3306 servername=mysqld
+
+location /{ http://ip
+}
+location /file{ http://ip/file
+deny all; //将拒绝所有
+}
+location /test{          http://ip/test
+allow 1.1.1.1; //只允许1.1.1.1
+deny all;
+}
+
+location ~\.php${
+root html;
+fastcgi 127.0.0.1:9000;
+fastcgi_inclide index.php;
+include fastcgi.conf
+}
+服务器电脑带ecc
+grent all on *.* to tom@localhost identified by '123456';
+<?php
+$mysqli = new mysqli('localhost','root','','mysql'); //连接数据库&&打开mysql表
+if (mysqli_connect_errno()){
+        die('Unable to connect!'). mysqli_connect_error();  //连接出错
+}
+$sql = "select * from user";  //打开user的直返回给sql
+$result = $mysqli->query($sql); //
+while($row = $result->fetch_array()){ //循环打印
+        printf("Host:%s",$row[0]);
+        printf("</br>");
+        printf("Name:%s",$row[1]);
+        printf("</br>");
+}
+?>
+
+rewrite /a  /b //天转由a调转到b
+rewrite ^(.*)$  http://www.tmooc.cn; //调转大www/tmooc.cn
+rewrite ^(.*)$  http://www.tmooc.cn/$1; //调转大www/tmooc.cn/$1
+
+pcre-devel //依赖包
+$http_user_agent  //识别访问的信息
+        if($http_user_agent ~* firefox){ //当你浏览器是firefox的时候调转到
+        rewrite /firefox/$1 
+        }
+rewrite a c last(继续往下读取) beak(结束请求) redirect (临时重定向),    permament（永久重定向） 给蜘蛛看的
+rewrite b q
+rewrite m e
+
+
+
+
+

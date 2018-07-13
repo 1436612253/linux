@@ -1,0 +1,57 @@
+	     --------->
+全局配置模式		接口配置模式
+	     <---------
+物理逻辑地址(第八位为0)
+逻辑地址(组播地址)(第八位为1)
+广播地址（FF-FF-FF-FF-FF-FF）
+前16位供应商提供
+-------------------------------------------------------------------------------
+前导码 |  帧启始定界符 | 目的地址 | 源地址 | 类型长度| 	 数据	  | 帧硝烟序列 |
+-------------------------------------------------------------------------------
+ 7字节 |      1字节    |    6字节 | 6字节  |  2字节  | 46-1500字节 |    4字节  | 
+---------------------------------------------------------------------------------
+交换机的工作原理
+mac 表
+mac地址学习 300s的记录时间后刷新AMAC表&交换机的更新是刷新MAC表   广播 -〉转发 -〉 更新 
+广播地址
+------------------
+单工 （单项通讯）
+半双工 （同一时间只能单向通讯）
+实现全双工 （同一时间可以双向收发）
+分割冲突域
+广播域划分
+vlan //通过软件的逻辑方式划分广播域 控制灵活
+virtual lan
+------------
+作用：
+控制广播
+安全性
+宽带利用
+延迟
+------------
+0-4095 //个vlan
+#show vlan brief  //信息摘要
+#channel-group 1 mode on //察看以太线路有的状态
+#show interfase fastEthernet 0/3 switchport //察看串口信息
+#show mac-address-table //察看mac地址表格
+(config)#vlan vlan-id //创建vlan
+(config)#interface vlan X  //进入vlan口配置模式
+(config)#ip difault-gateway ip //配置网官
+(config)#interfase rangr fastEthernet 0/1-2 & 0/1,0/2 进入宽口0/1 和0/2
+限制vlan
+(config-if)#ip address ip  //给vlan口配置ip
+(config-if)#switchport access vlan 10 //接口加入vlan 10
+(config-if)#switchport trunk allowed vlan remove 10 //从当前接口中禁止vlan10通讯
+(config-if)#switchport trunk allowed vlan add 10 //给当前接口添加vlan10通讯允许
+(config-if)#shutdown  //关闭端口
+(config-if-range)#switchport mode trunk
+(config-if-range)channel-group 1 mode on //邦定端口 创建以太通道 
+(vlen)#name vlan-name
+------------------
+(config-if)#switchport mode trunk //修改接口模式为中继链路模式
+trank //优先
+IEEE 802.1Q //给两交换机通讯添加vlan标识
+区分冲突域
+察看mac地址表
+
+学习 -> 广播 -> 转发 -> 更新 

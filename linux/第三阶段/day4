@@ -1,0 +1,78 @@
+DNS 分离解析
+当接收到客户端DNS查询请其求的时候
+能够区分客户端的来源地址
+为不同类别的客户机提供不同的解析结果
+$TTL 1D
+@       IN SOA  @ rname.invalid. (
+                                        0       ; serial //版本号
+                                        1D      ; refresh //1天 缓存
+                                        1H      ; retry //每1小时检测主服务器
+                                        1W      ; expire //1周
+                                        3H )    ; minimum //最小的检查时间
+匹配及停止
+由上及下的匹配
+使用view时所有的匹配读在客户端
+any全部匹配
+view "lan"{
+match-clients{ 192.168.4.11; };
+zone "sina.com" IN{
+type master;
+file "sina.com.sina.lan";
+
+}
+}
+~/.vimrc
+set nu 
+set ai //启动自动缩进
+pstree //查看进程
+systemd //内核的第一个进程
+ps aux 显示详细信息
+  -elf //显示父进程
+top -d [刷新频率]//刷新
+-p、M：根据%CPU、%MEM降序排列
+-T：根据进程消耗的TIME降序排列
+-k：杀死指定的进程
+-q:脱出top
+pgrep //显示进程名
+-l显示进程名和pid
+-U检索指定用户的进程
+-t检索指定终端的进程
+-X精确匹配文正的进程
+& //放入后台
+ctrl + z  //停止放入后台
+jobs //后台进程信息
+bg //继续运行进程
+fg //后台的进程恢复到前台
+carl+c 终端但前的命令程序
+kill [-9] PID... 、 kill [-9] %后台人物编号 
+killall [-9] 进程名
+killall -9 -u //强制踢出一个用户
+pkill 查找条件（泛性）
+由系统服务rsyslog统一记录/管理
+日志消息采用文本格式
+主要记录事件发生的时间、地点、进程`内容
+/var/log  //日志位置
+/message //记录内核消息、各种服务的公众消息
+/dmesg //记录系统启动过程的各种消息
+/cron //记录与cron计划人物相关的消息
+/maillog //记录邮件收发相关的消息
+/secure //记录与访问限制相关的安全消息
+tailf //实施根中日志
+awk //数据塞选
+sed //数据塞选
+users //登陆的用户
+who //登陆的用户
+w //查谁在终端
+last -2 //最近两个登陆用户
+lastb -2 //最近两次登陆失败记录
+man 2 syslog //查看日志
+日志分为7及
+EMERG 	级别0
+ALERT 	级别1
+CRIT 		级别2
+ERR		级别3
+WARNING	级别4
+NOTICE	级别5
+INFO		级别6
+BEBUG		级别7
+查看4级别以上的日志

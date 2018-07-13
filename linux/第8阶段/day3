@@ -1,0 +1,27 @@
+engine=innodb;
+show create table name;//查看床表记录
+auto_increment  //自身增长
+creata table db1.ygb(yg_id int(2) primary key auto_increment，name char(15),bumen char(20))engine=innodb;  //创建外键
+create table db1.gzb(gz_id int,name char(15),bumen char(20),gz fload(7,2),foreign key(gz_id) references ygb(yg_id) on update cascade on delete cascade); //创建外键控制表格on update cascade 同时更系删除
+update ygb set yg_id=1 where yg_id=8;  //修改yg_di=8的改为yg_di=1
+delete from ygb where yg_id=1; //删除yg_id=1的
+在外键参考时删除不了
+show create table gzb; //查看创建外键字段
+alter table gzb drop foreig key gzb_ibfk_1; 删除外键盘
+导入数据有路径要求/var/lib/mysql-keyring/
+create table users(
+name char(30),
+password char(15),
+uid int(2),
+pid int(2),
+comment char(100),
+homedir char(150),
+sshel char(50),
+primary key(name)
+); //创建表结构
+load data infile '/var/lib/mysql-files/passwd' into table users fields terminated by  ":" lines terminated by "\n"; //导入到表
+select * from users where uid<100 into outfile "/var/lib/mysql-files/syspasswd.txt";   //将users的表导出到/var/lib/mysql-files/syspasswd.txt文件中
+fields  terminated by '##########';  //导出时字段间隔符
+lines terminated by “！！！！！”;//导出时字段间隔符
+insert table tablename values(),(),(); //给多行赋值
+update user set paswd='A'; //修改

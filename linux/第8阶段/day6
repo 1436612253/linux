@@ -1,0 +1,35 @@
+innobackupex<选项>
+<完全备份>---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+innobackupex --user root --password 65321  /allbak --no-timestamp //备份数据
+innobackupex --user root --password 65321 --databases="buydb mysql" /allbak --no-timestamp //备份数据指定buydb库&&mysql库
+innobackupex --user root --password 65321 --databases="buydb.duydb" /allbak --no-timestamp //备份数据指定buydb库&&mysql库
+ <performance_schema>------------------------------------------------------------------------------------------------------------------------
+<恢复>要求数据库为空
+--apply--log;  //重至日志
+innobackupex --user root -password 65321 --apply--log  /buyfull  //清除日志
+systemctl stop mysqld  //停止服务
+rm -rf /var/lib/mysql/*  //清空数据vku
+innobackupex --user root -password 65321 --copy-back /buyfull  //还原
+chown -R mysql:mysql /var/lib/mysql //给权限
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<增量备份以完全备份为标准一次递增>
+innobackupex --user root --passwotd 654321 --databases="mysql sys performance_schema" /klk  --no-timestamp  //创建完全备份
+innobackupex --user root --password 654321 --databases="mysql sys performance_schema buydb" --incremental /klk1 --incremental-basedir=/klk --no-timestamp  //增量备份以klk为上次备份的标准
+innobackupex  --user root --password 654321 --databases="mysql sys performance_schema buydb"  --inclremental /klk2 --incremental-basedir=/klk1 --no-timetamp  //创建增量备份以klk1为上次备份的标准
+<还原数据>
+innobackupex --user root --password 654321 --databases="mysql sys performance_schema buydb" --apply-log /klk  //同步日志
+innobackupex --user root --password 654321 --databases="mysql sys performance_schema buydb" --apply-log --redo-only /klk  --incremental-dir="/klk1"  //恢复增量备份,以klk为标准恢复klk1 同步日志
+innobackupex --user root --password 654321 --databases="mysql sys performance_schema buydb" --apply-log --redo-only /klk1 --incremental-dir="/klk2" //恢复增量备份,以klk1为标准klk2 同步日志
+<写日日志>
+innobackupex --user root --password 654321 --databases="mysql sys performance_schema buydb" --copy-back /klk  //恢复数据以完全备份为标准
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+创建表结构
+>use database db;  //进入到丢失库数据的库
+>create table db(id int); //创建丢失数据库结构
+>alter table  db.db discard tablespace; //删除表空间
+innobackupex --user root -password 654321 --databases="db" --apply-log --export /klk  //到出表信息
+cd /klk/db/a.{ibd,cfg,exp} /var/lib/mysql/db/  //拷贝表信息文件
+>chown mysql:mysql /var/lib/mysql/db/a.*  //给表
+>alter table gamedb.a import tablespace; //导入表空间
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,46 @@
+java
+jdk && openjdk
+~~~~~~~~~~~~~~~~~~tomcat 解决8005端口的问题 8009   8080
+mv /dev/random /dev/random.bak
+lb -s /dev/urandom /dev/random
+<%java%> jsp结尾
+webapp/ROOT/ 默认路径
+appbase=webapp  -------> webapp/ROOT/    //指向位置
+默认引导文件 index.html   index.jsp
+
+conf/server.html
+<Setver>   
+<Service>
+<Connector port=80>  //启动端口
+<Engine defaulthost=www.baidu.com>  //配置非域名访问默认访问
+<Host name=www.baidu.com appbase=path>  //appbase----->>指向首页文件位置
+</Host>
+<Host name=www.sina.com appbase=path>                          
+</Host>
+<Context path="/test" docBase="/var/www/html/" />    //使用前需要添加目录否则启动服务失败
+</Service>
+</Server>
+keytool -genkeypair -alias tomcat -keyalg RSA -keystore /usr/local/tomcat/keystore  //生成密钥匙
+catalina -- tomcat  //apache tomcat   的名称
+<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />    //日志
+	varnish80 带缓存功能的代理
+	varnishd -f /path/cnfig   启动代理服务
+	
+backend default {
+     .host = "192.168.2.100";
+     .port = "80";
+ }  //配置文件
+Via //通过缓存访问到
+varnish  		web
+缓存服务器 	      源战点
+varnishd -s malloc,128m    //定义varnishd缓存空间
+varnishd -s file,/var/lib/varnish_storage.bin,1G  //定义varnsh使用文件作为缓存
+varnishadm  //进入到varnish
+varnish>ban req.url~.*    //清空缓存数据
+varnishlog  //查看日志
+varnishcsa  //查看日志
+keystortFile   //keyfile
+keystortPass   //keypasswd
+

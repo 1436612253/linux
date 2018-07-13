@@ -1,0 +1,107 @@
+解压
+修改主配置文件
+/etc/my.cnf
+[mysqld_multi]
+mysqld = /usr/local/mysql/bin/mysqld_safe
+mysqladmin = /usr/local/mysql/bin/mysqladmin
+user = root
+[mysqld1]
+port = 3307
+datadir = /dir3307
+socket = /dir3307/mysql3307.sock
+pid-file = /dir3307/mysqld.pid
+log-error = /dir3307/mysqld.err
+[mysqld2]
+port = 3308
+datadir = /dir3308
+socket = /dir3308/mysql3308.sock
+pid-file = /dir3308/mysqld.pid
+log-error = /dir3308/mysqld.err                    
+-----------------------------------配置
+mysqld --user=mysql --basedir=/usr/local/mysqld --datadir=/dir3307 --initialize  > password   //启动初始化写入密码到password
+mysqld_multi start 1 //启动第一个配置主机
+ss -luntp | grep 3307
+mysqld_multi start 2 //启动第二个主机
+ss -luntp | grep 3308
+mysql -uroot -p'' -S /dir3307/mysql3307.sock  //同果本地sock文件链接本地数据库
+----------------------------------------------------------------------------------
+数据库集群高可用
+ssh-keygen   //创建密钥
+ssh-copy-id root@192.168.4.5  //面密码
+主  主从  主从  从
+    主从半同步
+
+INSTALL PLUGIN rpl_semi_sync_slave SONAME 'semisync_slave.so';  //主库添加支持模块
+INSTALL PLUGIN rpl_semi_sync_slave SONAME 'semisync_slave.so';  //从库添加模块
+rpl_semi_sync_master_enabled = 1;  //启动半同步服务
+rpl_semi_sync_slave_enabled = 1;  //从库启用半同步服务
+yum  -y  install   perl-DBD-mysql  //安装开发包搭建mha环境
+rpm  -ivh  mha4mysql-node-0.56-0.el6.noarch.rpm  //安装客户端
+-------------------------------------
+yum -y  install    perl-ExtUtils-*     perl-CPAN*  //安装依赖包
+perl  Makefile.PL  //编译
+make && make install  //编译安装
+grant  all on  *.*  to  root@"%"    identified by "123456";  //创建允许授权用户
+set global relay_log_purge=off;  //清空中继承日志
+cp  mha4mysql-manager-0.56/bin/*    /usr/local/bin/  //拷贝环境可执行程序到path路径
+mkdir    /etc/mha_manager/   //创建配置目录
+cp mha4mysql-manager-0.56/samples/conf/app1.cnf  /etc/mha_manager/  //复制配置文件到指定目录下
+------------<修改主配置文件>
+vim /etc/mha_manager/app1.cnf
+[server default]
+manager_workdir=/etc/mha_manager
+manager_log=/etc/mha_manager/manager.log
+master_ip_failover_script=/usr/local/bin/master_ip_failover // 自动
+failover 时候的切换脚本
+ssh_user=root
+ssh_port=22
+repl_user=repluser // 主从同步用户名
+repl_password=123456 // 主从同步密码
+user=root // 连接数据库服务器用户名
+password=123456 // 密码
+[server1]
+hostname=192.168.4.51
+port=3306
+知
+识
+讲
+解
+[server2]
+hostname=192.168.4.52
+port=3306
+candidate_master=1 // 设置为候选 master
+[server3]
+hostname=192.168.4.53
+port=3306
+candidate_master=1 // 设置为候选 master
+[server4]
+hostname=192.168.4.54
+port=3306
+no_master=1 // 不竞选 master
+[server5]
+hostname=192.168.4.55
+port=3306
+no_master=1 // 不竞选 master
+-----------------------
+/usr/local/bin/masterha_check_ssh --conf= 管理节点主机主配置文件
+/usr/local/bin/masterha_check_ssh --conf=/etc/mha_manager/app1.cnf
+/usr/local/bin/masterha_check_repl --conf= 管理节点主机主配置文件
+/usr/local/bin/masterha_check_repl --conf=/etc/masterha/app1.cnf
+– masterha_manager // 启动命令
+– --remove_dead_master_conf // 不在 app1.cnf 文件里删除宕机的主库的信息
+– --ignore_last_failover // 忽略 .health 文件
+masterha_manager --conf=/etc/mha/app1.cnf --remove_dead_master_conf --ignore_last_failover //启动服务
+masterha_check_status
+----------<修改配置文件>
+vim /usr/local/bin/master_ip_failover
+$new_master_password
+);
+my $vip = '192.168.1.100/24'; # Virtual IP
+my $key = "1";
+my $ssh_start_vip = "/sbin/ifconfig eth0:$key $vip";
+my $ssh_stop_vip = "/sbin/ifconfig eth0:$key down";
+GetOptions(
+
+ip addr show | grep vip 地址
+ifconfig ethX:1 x.x.x.x/32
+

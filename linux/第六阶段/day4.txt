@@ -1,0 +1,29 @@
+传统数据库
+mysql,sqlserver,oracle
+数据库，数据表，数据列，表和表的关系
+非关系型数据库
+NOSQL 缓存数据,库kv数据库简单
+key=value
+memcached //包名
+/etc/sysconfig/memcached      //配置文件
+/usr/lib/systemd/system/memcached.service
+systemctl  /usr/lib/systemd/system/**.service     //系统控制台
+telnet   安装
+telnet ip  port
+set 存数据
+get  读数据
+add //添加，不存在的添加，存在报错
+replace //替换，存在的替换，不存存在时报错
+append //向变量为不追加
+delete  //删除变量
+stats //查看状态
+flush_all   //清空所有
+set lisi 0 180 5  //0表示不压缩 180s数据缓存时间5字节长度
+Session		cookie
+服务器存	        客户端存
+/etc/php-fmp.d/www.conf/  //www配置文件 
+/var/lib/php/session/ //记录配置信息
+
+watch //监控
+
+

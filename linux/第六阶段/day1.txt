@@ -1,0 +1,42 @@
+unix和linux平台
+-apache -nginx -Tengine -Lighttpd 
+-Tomcat	-IBM WebSphere	-Jboss
+iis
+【模块化】
+可选择性安装
+--with-http_ssl_module //加密模块
+nginx -s reload //从新加载配置文件
+natstat
+-a  现实所有端口信息
+-n 以数字显示端口
+-t 显示tpc端口
+-u 显示udp连接的端口
+-l 看那些服务在监听端口
+-p 现实监听程序名
+#user  nobody; //以什么用户启动
+work_processes 1;//启动多少进程
+http{
+server{
+listen 80; //端口
+server_name localhost; //域名
+root html; //路径（相对路径）
+auth_basic "Input Password"; //提示输入认证
+auth_basic_user_file "/usr/local/nginx/pass"; //创建认证
+
+}
+server{
+listen 80;
+server_name myserver.com;
+root html;
+}
+}
+md5sun //校验码
+httpd-tools//openssl
+htpasswd -c /path tom
+passwd>
+对称加密 （单机）
+非对称加密 （连机）
+信息摘要MD5（王小云）、sha256
+openssl genrsa > cert.key 生成密匙
+openssl req -new -x509 -key cert.key > cert.pem //生成公匙
+

@@ -1,0 +1,47 @@
+传输层端到端的通讯
+访问控制列表 (利用第三层的地址和第四层的端口和协议进行控制网络的安全ACL)
+
+一:源地址目的地址控制 
+二:源端口的控制
+三:访问控制列表用这四个元素定义规则
+    
+    数据进入
+       |
+       |
+       V
+拒绝  ---  允许
+
+<-     |      ->
+       V
+
+拒绝  ---  允许 
+       |
+       V
+    隐藏拒绝
+(config)#access-list 1 permit 192.168.1.0 0.0.0.255 //允许192.168.1.0网段的通过
+(config)#access-list 1 diny 192.168.2.2 0.0.0.0  //禁止192.168.2.2访问
+(config)#access-list 1 permit any //允许所有人进入
+(config-if)#ip access-list 1 in //当前端口使用序列<1>的控制进入规则
+NAT的特点
+NAT作用
+网络地址转换：
+通过将内部网络的私有ip地址翻译成全球唯一的公网ip地址,使内部网络可以连接到互联网的外部网络上。
+
+NAT的优点
+1:节约公有合法ip地址
+2:处理地址重叠
+3:安全性
+NAT缺点
+1:延迟增大
+2:配置和维护的复杂性
+实现方式:
+静态转换(Static Translation)
+端口多路复用(port Address Translation PAT)
+(config)#ip nat inside source static 192.168.1.0 100.0.0.1  //映射到外网
+(config-if)#ip nat inside //内往出去的端口
+(config-if)#ip nat outide //内外网出去的口
+PAT
+(config)#access-list 1 permit 192.168.1.0 0.0.0.255 //创建控制访问列表1
+(config)#ip nat inside source list 1 interface g0/1 overload  //创建PAT的访问列表为1
+(config-if)#ip nat outtside //出口数据出去的口
+(config-if)#ip nat intside  //数据进入的口

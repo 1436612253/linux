@@ -1,0 +1,101 @@
+-------------------------------------指令-----------------------------------------------------------------------------------------------------------------------
+alias ls=poweroff //创建别名
+unalias ls //删除别名
+cp /etc/passwd /root  //拷贝
+uname -r //查看内核版本
+ls -d //查看文件夹
+ls -l //查看详细内容
+mkdir -p /dir/dir... //创建文件夹自动替补不存在的子目录
+vim :set number //设置显示行号 
+rpm -q  http//查看是否已经安装程序
+rpm -i http //安装rpm软件包
+rpm -e http //卸载软件
+ssh -X uewrs@192.168.1.1//远程连接服务器
+yum-config-manager --add file://mnt //配置yum原不生成gpgcheck
+killall nginx //结束进程
+yum remove httpd //卸载程序
+yum clean all  //清空yum缓存
+wget http://www.url.com -O /root //高速网络下载
+nmcli connection modify eth0 ipv4.method manual ipv4.addresses ip/mask routeip
+connection.autoconnect yes //配置网络地址信息
+nslookup DNS //查看域名解析
+>> rb  //追加从定向
+> w+ //从定向
+createrepo /mnt //手动配置yum清单
+groupadd group //创建组
+useradd users //创建见用户
+usermod -g root -G root root -s /bin/nologin //修改用户归属问题
+userdel users //删除用户
+userdel -r //彻底删除用户信息
+gpasswd  -a users group //用户加入到组中
+gpasswd  -d users group //将用户移出组
+id users //查看用户身份信息
+echo ‘putstdio’ //回显示
+su - users  //切换用户
+less -N /etc/passwd //以翻滚式查看文件
+cat -n /proc/cpuinfo //将文件输出
+tail -2 /proc/meminfo //从后显示
+head -2 /proc/vertioninfo //从头显示
+grep root /etc/passwd //塞选查看
+grep -i ROOT /etc/passwd //不区分大小写
+grep -v root /etc/passwd //不显示查找行
+grep ^root  /etc/passwd //行首为
+grep bash$ /etc/passwd //行位为
+grep ^$ /etc/passwd  //取空
+
+tar -zcf file.tar.gz //压缩文件
+tar -jcf file.tar.dz2 //压缩文件
+tar -Jcf file.tar.xz //压缩文件
+tar -xf file.tar.dz2 -C /root //加压文件到
+tar -tf file.tar.gz //显示内容
+date -s  "2018-03-01 9:0:0" //修改时间
+timedatecel // 查看自动校时
+systemctl restart chronyd.servic //从启校时服务
+chmod ugo=rwx /home //分配文件权限
+chown root:users /list  //配置文件归属
+setfacl -m u:users:rwx /list //给他人配置私有权限
+setfacl -m u:username:rwx -R  /list //递归设置子目录归属
+setfacl -x u:user /list  //删除用户的acl权限
+setfacl -d /list  //删除所有acl权限
+getfacl /list //查看文件
+showmount -e classroom.example.com //查看网络文件配置
+find /etc/ -name "passed" //通过名称查找
+find /etc/ -type [-f -l -f] //通过类型查找
+find /etc/ -size +|-   //通过大小查找文件
+find /etc/ -mtime +|- //通过时间查找文件
+find /home/ -user  //通过用户查找
+-exec {} /; //区输出为参数
+crontab -e -u root  //位用户设置周期性计划
+crontab -l -u root //显示周期性计划
+crontab -r -u root //清除走周期性计划
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+概念 组分类：基本组（私有组）      附加组（从属组 公共组）
+概念 所属主（所属主【所有者】）（所属组）
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+配置文件
+/etc/yum.repos.d/filename.repo
+/etc/hostname
+/etc/sysconfig/network-scriptc/ifconfig-network-name
+/etc/resolv.conf
+/root/.bashrc
+/etc/passwd 
+/etc/group
+/etc/shadow
+/etc/chrony.com
+/etc/sssd/sssd.conf
+/var/log 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

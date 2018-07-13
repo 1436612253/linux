@@ -1,0 +1,70 @@
+mysql 主从
+grant replication slave on *.* to ser@'192.168.4.11' identified by '123456';  //创建从库同步用户
+show master status;  //查看信息
+------------------------------------------<设置为从库>
+change master to 
+>master_host="192.168.4.10",
+>master_user="repluser",
+>master_password='123456',
+>master_log_file=(show master status).file,
+>master_log_pos=(show master status).postion;
+
+change master to 选项="值"，选项="值";   //修改change值
+start slave; //启动主从服务
+show slave status\G; //查看状态
+---------------------------------------------------<取消从库><可以一主多从>
+-------------|主| <------ |从主| <---- |从|
+rm -rf /var/lib/mysql/[master.info,relay-log.info,localhost-relay-bin.index ,localhost-bin.000003]
+
+
+log_slave_pudates //启动主从同步
+relay_log=db-relay-bin  //指定同步日志文件文件
+主
+binlog_do_db=mysql  //仅复制指定库,其他库将忽略
+binlog_ignore_db=test  //忽略test记录test的日志同步
+从
+replicate_do_db=test  //仅同步指定库，其他库被忽略
+replicate_ignore_db=test //不同不哪些库，其他库忽略
+IO   //线程同步主机中的sql命令同步到本地，报错原因链接不上主库
+SQL  //执行IO线程同步到本地的sql指令，库差异，从库无法执行主库正确命令导致sql线程执行失败而断开
+last_SQL_Error; //查看SQL报错信息
+Last_IO_Error;  //查看io报错信息
+------------------------------------------------------------------------------------------
+查看: mysql> SELECT PLUGIN_NAME, PLUGIN_STATUS FROM
+INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME
+LIKE '%semi%';
+
+show variables like "have_dynamic_loading"; //查看是否支持动态模块
+从库: mysql> INSTALL PLUGIN rpl_semi_sync_slave SONAME 'semisync_slave.so';  //主库添加模块
+从库: mysql> INSTALL PLUGIN rpl_semi_sync_slave SONAME 'semisync_slave.so';  //从库添加模块
+查看: mysql> show variables like "rpl_semi_sync_%_enabled"; //查看主从服务是否启用半同步
+主: SET GLOBAL rpl_semi_sync_master_enabled = 1;  //主库启用半同步服务
+从: mysql> SET GLOBAL rpl_semi_sync_slave_enabled = 1;  //从库启用半同步服务
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+change master to 
+master_host="192.168.4.31",
+master_user="ser",
+master_password='123456',
+master_log_file="mariadb-bin.000001",
+master_log_pos=384;

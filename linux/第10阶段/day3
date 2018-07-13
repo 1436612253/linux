@@ -1,0 +1,20 @@
+slaveof ip  //指定从库
+info replication  //查看主从状态
+开启哨兵模式
+echo "sentinel monitor redis11 192.168.4.11 6311 1" > /etc/sentinel.conf  //设置从库
+sentinel auto-pass mymaster 123456   //设置主库密码
+redis-sentinel /etc/sentinel.conf   //启动哨兵程序指向配置文件
+
+save 900 1  //900s内有1个就村盘
+save 300 10 //300s内有10个存储就存储
+save 60 10000  //60s内用1000就存储
+lpush   name  values1 values2 values3   //创建列表
+lrange name x xx  //取x到xx的值倒叙
+lindex name 2  //取第二个边量倒叙
+rpop name  //从后取
+lrange name 0 -1  //输出所有的值
+hset name field value  //存储枚举类型field:列名 values:值
+hmset name field value field value ...  //插入多个值
+hmget name field field  //取值
+
+

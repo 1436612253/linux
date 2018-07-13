@@ -1,0 +1,9 @@
+nginx php-mfp   httpd_tools pcer-devel openssl-devel //交接数据库
+/etc/security/limits.conf  //配置软硬连接的
+/usr/lob/systemd/system/*  //存储系统控制台的脚本
+/etc/php-fmp.d/www.conf  //配置memcache
+/etc/chrony //时间同步软件配置文件
+subersion-libs  //svn软件包
+conf/svnserver.conf  //配置svn配置文件
+apatch-tomcat //jre && jdk
+

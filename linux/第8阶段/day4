@@ -1,0 +1,54 @@
+匹配条件（select update delete）
+where  = > < !=  >=  <=
+where 字段名 符号 值
+or and not
+is not null 非空
+is null
+not in //不再什么里
+in //在什么里
+ select distinct sshel from users where uid <= 10; //不显示字段重复值
+select name,uid from users where name like '__%__';
+% 0个或多个字符
+_ 匹配一个字符
+where 字段名 regexp '正则';
+update set tablename name=name where name regexp '[xxx]';
+select name,(gid+uid)/2 guid from users;//查看name和gid+uid平均值guid
+avg()球平均值
+sum()球和
+min()最小值
+max()最大值
+count() //取个数
+heving 关键字索引//在查询结果中筛选
+like ‘__%_’//模糊匹配
+limit  n//查询前n行
+limit n,ny //从第n行开始查前ny行
+order by uid desc; //排序倒叙
+order by uid;//排序
+group by 字段名;   //分组对带个字段分组
+show engines; //查看数据库默认和支持的存储引擎
+/etc/my.cnf  
+->default-storage-engine=存储引擎名
+->
+myisam && InnoDB  //生产环境下使用
+mysam
+.frm  //存储表结构
+.MYD   //存储数据
+.MYI  //存储索引
+不支持外键和事物回滚
+支持表级锁(给一张枷锁)
+innodb
+.frm  //结构
+.idb  //数据索引
+支持外键和和事物回滚
+至此行级别锁(值给被访问的行加锁)  //解决并发访问冲突 
+隔离性
+commit  //提交
+set autocommit=off;  //关闭自动提交
+rollback //回滚
+
+
+枷锁分为锁粒度 ： 行锁  表锁 页级锁
+锁类型 ： select读锁(共享锁) insert写锁(排它锁&&互斥锁) update delete 。
+
+
+ 

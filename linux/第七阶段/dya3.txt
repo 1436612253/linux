@@ -1,0 +1,65 @@
+yum -y install audit  //安装审计软件
+/etc/audit/auditd.conf //查看配置文件确定日志位置
+log_file=/var/log/audit/auditd.log  //日志路径
+auditctl -s //查询状态
+auditctl -l //查看贵者
+auditctl -D //删除所有规则
+auditctl -w path -p permission -k key_name  //语法
+权限r,w,x,a 
+tailf /var/log/audit/audit.log  //查看日志文件
+ausearch -k sshd_config -i  //已易读方式读取
+ausearch -if filename  //查看文件名
+/etc/logrotate.conf //修改日志配置
+without --without-http_ssi_module  //禁用ssi模块
+without   //nginx默认安装的模块
+server_tokens off; //关闭显示nginx 版本系系
+src/http/nginx_http_header_filer_module.c  //修改不显示名称
+--------------------------------------------------------------------------------------------------------------
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+server{
+server_name localhost;
+limit_req zone=one burst=5;
+}
+访问控制
+---------------------------------------------------------------------------------------------------------------
+ab -n 100 -c100 http://127.0.0.1/    //迷你并发连接
+if ($request_method !~^(GET|POST)$ )
+{
+return 444;
+} //拒绝GET|POST以外的情请求
+client_body_buffer_size 1k;
+client_header_buffer_size 1k;
+client_max_body_size 1k;
+large_client_header_buffers 2 1k;
+数据库
+//nginx 头部信息
+mysql_secure_installation //初始化数据库
+myaqladmin -uroot -p123456  password '123456'  //修改密码
+musql -uroot -p123456  //登陆数据库
+>set password for root@'localhost'=password('redhar')  //为用户修改密码
+>select user,host,password from mysql.user;  //查询mysql库中的user表的用户名主机名和密码信息
+/root/.mysql_history  //记录下数据库的历史记录
+mysql 5.6以前的版本日志能看到密码
+/var/lib/mysql  //存储数据库
+mysqldump -uroot -predhat mydb table > teble.sql
+mysqldump -uroot -predhat mydb > mydb.sql
+mysqldump -uroot -predhat --all-databases > all.sql
+
+/var/usr/local/tomcat/lib/cataline.java   //访问报错的包
+org/apache/catalina/util/ServerInfo.properties   //报错返回版本
+/usr/local/tomcat/conf/server.xml  //主配置文件中修改版本号
+<Connector server="jacob" protocol="HTTP/1.1" />  //版本是哟年为jacob
+useradd tomcat
+chown -R tomcat:tomcat /usr/local/tomcal   ///给tomcat下的所有目录的所有全转教给tomcat用户
+su -c /usr/local/tomcat/tomcat/bin/start.sh  tomcat //以tomcat用户启动tomcat进程
+/etc/rc.local  //开机自启动脚步本（默认没x权限）
+补丁 diff  生成补丁包       patch 打补丁
+diff file files //查看不一样的
+diff -u file files  //显示如何补丁
+yum -y install patch
+diff -u file file > budingfile //针对文件打补丁
+diff -Nuar /path /paths > budingfile //针对二进制文件打补丁
+ patch  -p1 < ../source.patch //打补丁
+
+
+

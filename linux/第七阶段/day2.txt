@@ -1,0 +1,40 @@
+md5sum filename //创建md5码
+vimdiff  //找区别
+GnuPG
+yum -y install gunpg2   //安装加密软件包
+gpg -c filename  //加密文件|
+gpg -d filename //解密   	 | 对称加密
+gpg --gen-key  //生成密钥 -> 使用密钥类型 -> 创建密钥长度->指定密钥的过期时间
+gpg -a --export setname > filename.txt  //导名字为setname的密钥到filename.txt中
+scp filename user@ip:/root  //发送公钥匙
+gpg --import filename.txt //导入公钥用来加密
+gpg -e -r setname filename  //对filename文件进行加密
+scp filename root@ip:/root  //将文件传输到对面
+gpg -d filename > files //将加密文filename解密到files
+gpg -b filename //创建加密认正filename.sig
+verify logs.tar.sig logs.tar  //查看认证
+--------------------------------------------------------------------------------------
+yum -y install aide
+/etc/aide.conf
+SETFIREWALL = p + i + n + s + b + m  //定义校验量
+/root SETFIREWALL //校验位置
+aide --init  //开始校验
+/var/lib/aide/aide.db.new.gz   //校验存储位置
+aide --check //查看发生变化的详情
+----------------------------------------------------------------------------------------
+yum -y install nmap  //扫描与抓包
+nmap -sP  //做ICMP扫描
+nmap -sS //做tcp扫描(半开)
+nmap -sT //做tcp扫描(全开)
+nmap -sU //做UDP扫描
+nmap -A  //目标系统全面分析
+-----------------------------------------------------------------------------------
+tcpdup -A host ip and tcp port x  //监控tcp
+
+网页使用的是base64
+base64 -d  filename  //解除编码
+base64 filename  //转编码
+
+
+
+

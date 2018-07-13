@@ -1,0 +1,43 @@
+安装redis-4.0.8
+tar -xzf redis-4.0.8.tar.gz
+cd redis-4.0.8  
+make
+make install
+./utls/install_server.sh
+/etc/init.d/redis_6379 start  //管理redis脚本
+----------------------
+yum -y install php-devel
+tar -xf php-redis-2.2.4.tar.ge
+cd phpredis-2.2.4
+/usr/bin/phpize  //执行准备初始化命令
+./configure --with-php-config=/usr/bin/php-config //安装
+make install
+vim /etc/php.ini
+extension_dir = "取安装目录"
+extension = "redis.so"
+-----------------------------------------------------
+set keyname dbname  //写入
+move keyname dbname  //删除
+ttl dbname  //生命周期
+exists keyname   //车是是否存在
+type keyname //查看名
+select index  //切换到那个库
+-------------------------------------
+rpm -ivh -nodeps  //忽略依赖关系
+----------------------------------
+815 cluster-enable yes //启用集群服务
+823 cluster-config-file nodes-6356.conf //指定配置文件
+829 cluster-node timeout 5000   //设置超市时间
+93 prot 6356  //设置端口号
+bind 192.168.4.ip //设置ip地址
+----------------------
+//安装php-predis时
+/usr/bin/phpize
+--------------------------
+redis-trib.rb   //产看帮助
+redis-trib.rb  create --replicas 1  192.168.4.101:6371  192.168.4.102:6372 192.168.4.103:6373 192.168.4.104:6374 192.168.4.105:6375 192.168.4.106:6376//对应主机编辑
+[PHP]
+extension_dir = "/usr/lib64/php/modules/"
+extension = "redis.so"
+
+

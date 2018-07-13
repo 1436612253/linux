@@ -1,0 +1,46 @@
+mongoDB
+不固定列
+mkdir -p data/db
+mongod 
+配置文件
+dbpath=/usr/local/mongodb/db   //指向数据数据库存节点
+logpath=/usr/local/mongodb/log/monogodb.log  //指定日志文件
+bind_ip=192.168.4.11 //指定地址
+port=27050  //指定端口
+logappend=true 
+fork=true
+ 
+killall -9 mongod  //stop service
+alias mongo="mongo -host 192.168.4.11 -port 27050"  //创建启动别名
+show dbs  //查看所有的库
+db //显示所在库
+use db  //切换库，库不存在的话自动延时创建
+show collections && show tables  //查看库下的已有的集合
+db.dropDatabases()  //删除当前所有的库
+db.name.drop()  //删除集合
+db.name.save('name':'values','name':'values')  //创建集合
+db.name.find()  //查找
+mongoexport  //导出数据
+json OR scv   //导出的个时
+-------------<json格式>
+mongoexport --host 192.168.4.12 --port 27051  -d db -c ser  --type=json > /root/fs.json  //创建备份
+mongoimport --host 192.168.4.11 --port 27050 -d db -c cll --type=json  /root/db.json  //导入数据
+--------------<scv格式>
+mongoexport --host 192.168.4.12 --port 27051  -d db -c ser  -f _id,name --type=csv > /root/fs.scv  //导出
+mongoimport --host 192.168.4.12 --port 27051  -d db -c ser  -f _id,name --type=csv  /root/fs.scv  //导入
+--headerline //忽略列表
+--drop   //删除源记录导入
+
+
+db.passwd.save({
+user:'roots',
+password:'x',
+uid:'888888',
+gid:'999999',
+commit:'teacher',
+homedir:'/home/roots',
+shell:'/bin/bash'
+})
+mongodump -d bbs3 -c ser -o /bbs3bak  //备份
+mongorestore -d bbs3 /bbs3bak/bba3  //查看
+mongorestore -d bbs3 -c user3 /bbs3bak/bba3/user3.bson  //恢复

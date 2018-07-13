@@ -1,0 +1,7 @@
+redis-trib.rd   //集群控制指令
+-add-node  添加节点
+-check 检测节点
+-reshard  重新分片
+-del-node  删除节点
+--slave添加从主机
+create  创建集群

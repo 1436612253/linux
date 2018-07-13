@@ -1,0 +1,98 @@
+[第四天学习笔记]
+rht-vmctl reset hostname
+rpm -q  软件名   //查询软件情况
+rpm -i 包名   //安装
+rpm -e 软件名 //卸载
+导入红帽的签名信息
+rpm --import /RPM-GPG-KEY-redhat-release
+
+rpm 报错
+依赖检测失败
+
+yum软件包仓库  又名 黄狗升级管理器
+作用 ：解决依赖关系
+一种服务
+为客户端自动解决依赖关系安装软件包
+具备软件包
+仓库请单
+窗苦数据文件
+ssh 名称@地址
+ssh -X 名称@地址  在本地执行对方的gui程序
+---------------------------------------------------------------------
+	yum.repo 配置文件格式 ----->
+
+	[name]
+	name="name"
+	baseurl=file:// & network
+	enabled=1
+	gpgcheck=0
+				  <----
+----------------------------------------------------------------------
+xeyes & 释放
+killall name结束进程
+yum -y install 安装
+yum remove 
+yum clean all 清空yum的缓存
+man yum-config-manager  --add-repo
+wget 软件包的url网址 -O /目标地址 
+-----------------------------------------------------------------
+升级内核的包
+3.10.0-123.el7.x86_64
+kernel-3.10.0-123.1.2.el7.x86_64.rpm
+和安装普通包一样
+-------------------------------------------------------------------
+
+/etc/hostname   永久性修改主机名
+
+配置永久的ip地址和子网掩码和网官
+nmcli connection modify 'System eth0' ipv4.method manual ipv4.addresses '172.25.0.11/24  172.25.0.254' connection.autoconnect yes
+------------------------------------------------------------------------------
+/etc/sysconfig/network-scriptc/ifcgf-eth0
+                                    ----------------------->
+DEVICE=eth0 //设别名称
+BOOTPROTO=none //是否制动获取ip地址
+ONBOOT=yes //开机自启
+TYPE=Ethernet //网络类型
+USERCTL=yes //
+IPV6INIT=no //是否使用ipv6
+PERSISTENT_DHCLIENT=1 
+IPADDR0=172.25.0.11 //地址
+PREFIX0=24 //子网长度
+GATEWAY0=172.25.0.254 //网址
+DEFROUTE=yes //
+IPV4_FAILURE_FATAL=no
+NAME="System eth0" //网卡名称
+UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03
+                                   <------------------------
+------------------------------------------------------------------------------
+---------------->
+/etc/resolv.conf
+配置子段
+nameserver ip
+
+
+nslookup  :验证
+<---------------
+
+/root/.bashrc 修改别名
+>>追加
+>流
+createrepo /rpm:path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

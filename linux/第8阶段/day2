@@ -1,0 +1,56 @@
+mysql 时间函数
+datetime(非默认) timestamp(默认府值)
+1000-01-01            1970-01-01
+select year(20140304); //在字符床中获取年
+select now();//获取当前的系统时间和日期
+select year(now()); //获取年
+select month(now())； //获取月
+select day(now());//获取日
+select time(now());//获取时间
+sleep(); //休眠
+(****-**-**  **:**:**) //年月日时分秒允许对应关系
+约束条件
+int(x)zorofill;//指定自动补x个0
+create table fs(fise int(10),to char(3))not null;//禁止为空
+default 300;
+create table fs(fise int(10))default 300;
+修改表结构
+alter table t5 add emamil varchar(30); //添加字段
+alter table t5 add name char(10)after name; //添加字段到name后面
+alter table t5 modify name char(10); //修改长度为10（会重致约束条件）
+alter table t15 drop name drop age;//删除字段
+alter table tt10 change age agv char(10) default "163@.com";  //修改tt10表重的age字段为agv（）可重写参数 
+alter table t10 rename tt10;//修改表名称 
+键值 
+index *普通索引
+unique 为一索引
+primary key *主键索引
+foreign key *外键索引
+fulltext 全文索引
+索引时
+
+create table bata(name char(10),age tinyint,class char(10),index(name),index(class)); //创表时设置索引字段
+drop index class on taba16;  //删除taba16重的class索引
+BTREE (二叉树算法)
+MUL //key
+show index on t16;//显示t16表的索引字段
+create index aaa on stuinfo(name);//添加索引字段
+primary key
+不能重复和空
+一个表只能有一个主键
+pri //key
+create  table t16(age int(10)primary key,name char(12));//创佳主键
+create  table t16(age int(10),name char(12),primary key(age));//创建主键
+alter table t16 drop primary key; //删除主键
+alter table t16 add primary key(name);//添加主键
+delete table t16;//删除t16的数据
+复合主键
+多个条件不能同相同
+create table t18(cip char(15),serport int,status meum("yes","no"),primary key(cip,serport)); //创建复合主键
+alter table t18 drop primary key; //删除主键
+alter table t18 add primary key(ip,name); //添加组建
+auto_increment, //自增1
+create table t18(ip_id int primary key auto_increment,name char(10),age tinyint); //创建一个主键自增
+alter table t5 add id int primary kdy auto_increment; //添加自增主键
+外键
+foreign key(gz_id) references ygb(yg_id) on update cascade  //创建外键同步更新

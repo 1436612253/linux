@@ -1,0 +1,12 @@
+STP生成树
+生成树配置:
+(config)#spanning-tree vlan 1 priority 24576  //给交换机设置生成树优先级越小越优先
+(config)#spanning-tree vlan 1 root primary  //配置当前路由为生成树的根
+(config)#spanning-tree vlan 1 priority 18672  //设置生成树的权限越小越优先
+(config)#spanning-tree vlan 1 root senodary  //设置为次根
+热备份
+(config)#interface vlan 1 //进入虚拟接口
+(config-if)#standby 1 ip 192.168.1.254 //给虚拟接口配置一个虚拟的邦定地址
+(config-if)#standby 1 priority 105 //修改修改权限为105
+(config)standby 1 track fastEthernet 0/1 
+(config)standb 1 preemp  // 抢占权限

@@ -1,0 +1,49 @@
+HAproxy
+defaule  //缺省的
+frontend //前端
+backend
+listen
+yum -y install haproxy  //安装调度程序
+vim /etc/haproxy/haproxy.cfg    //修改调度程序配置文件
+---------------------------
+listen stats  
+bind 0.0.0.0:1080  
+stats refresh 30   
+stats uri /monitor   
+stats realm HaManager  
+stats auth admin:admin  
+listen myweb 0.0.0.0:80 
+cookie SERVERID rewrite  
+balance roundrobin
+server web1 192.168.4.201:80 cookie a1i1 check inter 2000 rise 2 fall 5
+server web2 192.168.4.202:80 cookie a1i2 check inter 2000 rise  2 fall 5
+-------------------
+ip:1080/monitor  
+访问
+-------------/etc/rsyslog.conf
+#Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514
+#Provides TCP syslog reception
+$ModLoad imtcp
+$InputTCPServerRun 514
+----------  //启用网络配置
+cat /var/log/message //查看信息
+
+yum -y install kepalived
+keepalived
+----------------------------------------------------
+
+在web服务器上配置lo vip
+
+echo "net.ipv4.conf.all.arp_ignore = 1" >> /etc/sysctl.conf
+   21  echo "net.ipv4.conf.lo.arp_ignore = 1" >> /etc/sysctl.conf 
+   22  echo "net.ipv4.conf.all.arp_announce = 2" >> /etc/sysctl.conf
+   23  echo "net.ipv4.conf.lo.arp_announce = 2" >> /etc/sysctl.conf
+   24  sysctl -p
+//修改内核参数
+
+
+
+
+

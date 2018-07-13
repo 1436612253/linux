@@ -1,0 +1,6 @@
+authconfig-tui //配置LDAP的配置
+autofs
+//etc/autofs
+/etc/auto.master
+启动 > 进入但用户模式 
+/etc/lpool/cron/

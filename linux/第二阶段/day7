@@ -1,0 +1,32 @@
+http服务基础
+基于B/S (browser/server)架构的网页服务
+-服务端提供服务
+-浏览器下载并显示网页
+httpd配置文件
+/ver/www/html/index.html
+curl 172.25.0.11 //浏览器
+网页根目录 DocumentRoot  /var/www/myweb
+ServerName
+DocumentRoot
+DirectoryIndex
+虚拟主机
+作用：让一台服wed务器,提供多个页面
+三种形式 基于域名虚拟wed ： 基于端口虚拟wed ： 基于ip虚拟wed主机
+includeoptional conf.c/*.conf //条用配置文件
+<virtualhost ip:域名>
+servername dns
+documantroot 
+</virtualhost> 
+<Directory "/var/www">
+   Require ip //仅允许
+Require all granted //允许所有
+Require  all denied //拒绝所有
+</Directory>
+
+
+ls -Zd 产看文件的selinux的上下文
+chcon -R reference=/var/www /webroot/ //修改文件selinux的上下文
+部署动态网站
+semanage //工具
+#semanage port -l | grep httpd_port //查看服务端口
+#semanage port -a -t http_port_t -p tcp 8909//向现有的服务端口增加新的端口

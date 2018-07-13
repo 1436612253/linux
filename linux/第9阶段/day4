@@ -1,0 +1,140 @@
+视图
+假的表
+-----------------------------------------
+来自于基表-->生成
+视图的基本使用
+创建
+create view t1 as select usr,password from user where uid <= 50; //创建
+create view t2(anem,pass) as select user,password from user;  //创建并修改字段 
+create view t3
+create or replication       
+查看
+show tables status;
+show table status where comment="view"\G; //产看现有的视图表
+Comment:  //试图字样 view视图表
+show create view t1;  //查看创表过程
+drop view t5; //删除是图表
+create view v1 as select user,uid from user where uid <= 10; //创建v1表
+create view v2 as select user,uid from v1 where uid <= 5;  //创建v2表
+-----<可以修改
+create view v1 as select user,uid from user where uid <= 10;
+create view v2 as select user,uid from v1 where uid <= 5;
+with local check option; //紧满足当前试图检测限制
+with check option; //同时满足基表的限制
+create view v2 as select * from user; //创建一个表
+create view v2 as select * from user;  //创建失败
+create or replace view v2 as select * from user;  //创建成功等于更新视图
+存储过程
+sql中存储一系列sql命令的集合
+存在库里面
+-------------<结构>
+create procedure name()
+bgin
+...
+...         <<--  sql命令 边量 条件判断,流程控制,算数计算
+...
+end
+-------------------------------------------
+修改件结束符号
+delimiter //
+调用call name();
+查看存储过程
+select * from mysql.porc where name="say1"、G;  //查看所有
+select name,db,type from mysql.proc;  //显示name,db,type存储过程
+select body from mysql.proc where name="say1";  //查看实现功能
+drop procedure name; //删除
+定义边量
+      全局边量
+set @bd="nihao";
+    declare  局部边量 default 值；
+begin
+局部边量
+end
+sort_buff_size=40000; //修改会话缓存
+局部变量和参数变量不需要加@ 
+
+
+delimiter //
+create procedure uid()
+begin
+declare x int default 77;
+select x;
+select uid into x from db9.user;
+select x;
+end
+//
+delimiter ;
+in //输入型参数
+out //输出参数  返回参数
+inout //输入输出型参数
+
+delimiter //
+create procedure uid(in name int)
+begin
+select name;
+end
+//  传入参数
+
+
+delimiter //
+create procedure uid(out name int)
+begin
+set name=100;
+end
+// 传出参数
+if //判断
+-----------------------------------
+if values <= values then
+...
+...  <-- 执行体
+...
+else
+.....
+.....
+.....
+end if;
+------------------------------------
+loop  //无条件循环
+--------------------------------
+loop
+...
+...   <--- 循环体
+...
+end loop;
+_______________--
+repeat
+..
+..   <--  循环体
+...
+until 条件判断
+end repeat;
+-----------------------------
+LEAVE = back  //结束循环
+ITERATE = continue  //结束本次循环 
+需要添加标签名
+label:while
+label:loop
+label:erpeat
+unitl //退出循环
+------------------------------
+delimiter //
+create procedure p1()
+begin
+declare i int(2);
+set i = 1;
+load1:loop
+	set i=i+1;
+if i=10 then
+	LEAVE load1;
+end if;
+select i;
+end loop;
+end //
+delimiter ;
+
+
+
+
+
+
+

@@ -1,0 +1,234 @@
+set global validate_password_policy=0;   //设置密码难度
+set global validate_password_length=6;  //设置密码长度
+alter user root@‘localhost’ identified by '123456' //修改用户密码
+show databases;  //查看数据库
+create atabase b; //创建数据库b
+drop database b; //删除库名为b的库
+show tables;  //显示表名
+create table tabname(name char(15),class char(1))default charset=utf8; //创建表和默认字符集
+desc t1; //查看表结构
+insert into t1 values("lisi","nsd1803");  //插入数据到t1表中
+update t1 set class="nsd";  //修改值
+drop table t1;  //删除表
+show create table t1;  //查看创建类型
+DDL (create(创建数据库) alter(修改表，字段) drop(删除库、表))
+DML(insert(插入表内容) update(修改表内容) delete(删除表内容))
+DCL(grant(授权管理) revoke(受权修改))
+DTL(commit rellback savrpoint)
+/etc/my.snf  //数据库配置文件
+tinyint(1)  //一个字节长度整形
+smallint(2) //两个字节长度zheng形
+mediumint(3) //三个字节长度整形
+int(4) //四个长度整形
+digint(8)  //长整形
+float(4)	double(8)  //浮点形 
+text/blob //文本类型
+char  //定长字符形
+varchar  //边长 
+enum  //枚举类型
+set   //多选枚举类型
+date()  //取日期
+time()  //取时间
+datetime()  //取日期时间
+year()  //取年
+select sleep(2); //休眠时间
+select now();  //获取当前的系统时间和日期
+select year();  //提取出年
+select month();//提取月
+select day();  //提取日
+select time(); //提取时间
+int(x)zerofill; //指定自动补x个0
+create table fs(fise int()not null）;  //禁止空插入
+alter table t5 add name varchar(30);  //添加name字段varchar(10)长度
+alter table t5 modify name char(10);  //修改name字段的数据类型为char(10);
+alter table t5 modify names char(10) after name;  //在name中插入names字段
+alter table t5 drop name drop age;/删除name字段和age字段
+alter table t5 change age agv char(10) default "163@com";  //修改tt10表中的age字段为age()可重写参数
+alter table t5 rename tr10; //修改表名称
+create tables bata(name char(10),age tinyint,class char(10),index(name),index(class)); //创表设置为默认索引
+drop index calss on t16; //删除t16表中的index索引字段
+show index on t16;//查看t16表的索引字段
+create index aaa on stuinfo(name); //提阿年索引字段
+create table t16(age int(10)primary key,name char(12)); //添加主键
+create table t16(age int(10),name char(12),primary key(age));//创建主键
+alter table t16 drop primary key; //删除主键
+delete table 16;//删除t16的数据库
+create table t18(cip char(15),serport int,status enum("yse","no"),primary key(cip,serport));  //创建复合主键
+alter table t18 drop primary key; //删除主键
+show create table name; //产看创表记录
+auto_increment  //自增
+create table t1(yu_id int primary key auto_increment,name char(15),bumen char(20))engie=innodb; //指定数据库索引类型
+engine=innodb  //创表时指定索引方式
+show create table name;  //查看床表的方式
+auto_increment;  //自动增长与主键一起使用 
+create table db1.dbs(id int(1) primary key auto_incrementname,name char(15),bumen char(20))engine=innodb;
+//创表时指定主键自动增长指定普通搜索引擎
+create table db1.db1(id int,name char(15),gz fload(7,2),foreign key(id) references db1(id) on update cascade on delete cascade);  //创建外键 on update cascade 同步更新  on delete cascade 同步删除
+update db1 set id=10 where name="xiaosi";  //修改"xiaosi"列中的id值为10
+delete from db1 where id=1; //删除db1表中id值等于1的列
+show create table dbd1;  //查看创表记录
+alter table gable drop  foreign key gzb_ibfk_1;  //删除外键
+create table user(name char(150),password char(1),uid int,gid int,comment char(100),homedir char(100),shell char(150));  //创建一个passwd 的表结构
+load date infile '/var/lib/mysql-files/passwd' into table users fields terminated by ":" lines terminated by "\n";  //导入数据以：为分割符号 \n为
+load data infile '/var/lib/mysql-files/passwd' into table users fields terminated by  ":" lines terminated by "\n";
+select * from user uid < 100 into outfile "/var/lib/mysql-files/putfile.txt"  //将表导出到 putfile 文件/var/lib/mysql-files/syspasswd.txt  
+fields terminated by "#######"
+lines terminated by "!!!!!"
+insert table tablename values(),(),();  //给多行赋值
+update user set passwd='A'; //修改表值
+where => < > <= != =   //判断
+where 字段 判断符 值
+or and not   
+is null
+not in //不再什么里
+in //在什么里
+select distinct sshll from users where uid <= 10;  //不显示重复字段
+select name uid from user where name like '_%_;//模糊匹配 % 匹配0个或多个子付串 _匹配一个字符串
+where 字段 regexp ‘正则’ ; //创建
+update set tablename name=name where name regexp '[xxx]';  //修改字段的值匹配正则行
+select name,(gid+uid)/2 guid from user;//查看name和gid+uid平均值de guid
+avg();  //平均值函数
+sum()球和
+min()最大值
+max()最大值
+count() 球行数
+heving 关键字索引在查询中塞选
+like '_%_' //模糊匹配
+limite n //查询n行
+limite n,ny //从第ny行开始
+order by uid desc; //排序倒叙
+order bu uid;//排序
+group by 字段名;  //分组同里不多次显示想同
+show engines; //查看数据库默认和支持的存储引擎
+/etc/my.cnf  //配置文件
+defaule-storage-engine=‘存储引擎’；//存储引擎
+myisam && InnoDB  //生产环境下使用
+-------------------------
+mysam  //存储引擎
+.frm  //存表结构
+.MYD  //存储数据--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+.MYI  //存储索引
+不支持数据回滚
+-------------------------
+innodb
+.frm //结构
+.idb  //数据索引
+支持数据回滚
+-----------------------
+set autocommit=off;  //解决并发访问冲突
+rollback;  //回滚指令
+commit;  //提交
+
+枷锁分为锁粒度 ： 行锁  表锁 页级锁
+锁类型 ： select读锁(共享锁) insert写锁(排它锁&&互斥锁) update delete 。
+where > < = != >= <=  //判断
+or and not ;  或者 和 非
+is not null //非空
+not in ()//不再什么中
+in ()//在什么中
+select distinct shell from user where uid <= 10;  //不显示字段重复值
+select name,uid from user where name like '__%__'; % 0个或者多个字符
+where 字段 regexp 正则；
+update set tablename name=name where name regexp '[]';  //使用正则
+select name,(gid+uid)/2 guid from user;   //查看user表中的name和(git+uid)/2 以guid为显示字段
+avg()  //求平均值 
+sum()  //求和
+min()  //最小值
+max()  //最大值
+count()  //取个数
+heving 关键字索引  //在查询结果中筛选
+like '_%_' //模糊查询
+limit n    //查询前n行
+limit n,m;  //从n行开始查到m
+order by name desc;   //倒序
+order bu name;  //排序
+show engies;  //查看数据库存储引擎
+/etc/my.cnf  //配置文件
+->default-storage-engine=name  //修改存储引擎
+myisam && InnoDB    //最常用的存储引擎
+set autocommit=off;  //关闭自动提交
+rollback  //回滚
+select user,host from user where in (select uid from usert where ui<50);  //嵌套查询
+select user,host from user,user;  //交叉查询
+                                   _______
+select user,host from user left join usert no uid<50;  //左链接
+                                   ________
+select user,host from user right join usert no uid<50;  //右链接
+skip-grant-tables  //跳过密码认证
+host user authentication_string  //数据库用户字段
+update mysql.user set autentication_string=password("") where user="username" and host="localhost"; //修改密码
+flush privileges;  //更新受权
+systemctl restart mysqld  //重起服务器
+grant all on  //给用户最大权限
+grant select,insert,update,delete on  //给用设定权限
+grant select,update(name,uid) on  //指定字节权限
+grant usage on //不给于用户权限
+%  //带表网络中的所有有主机
+with grant option  //允许受权
+show grants //存储授权信息
+mysql.user  //用户信息
+mysql.tables_priv  //表字段
+mysql.columns_priv  //字段权限
+show grante for username@'%'  //查看用户的授权信息
+select * from mysql.user where user='admin' \G;   //查看mysql.user下的user字段值为admin是否存在 显示为以列显示
+update mysql.tables_priv set Tables_priv="select,insert" where user="db1";  //修改用户权限
+flush privileges; //更新
+revoke 授权表 on 数据库 from admin@'%';  //撤销用户权限
+revoke grant option on *.* from admin@'%'; //修改admin用户的权限
+drop user admin@'%';  //删除一个用户
+delete mysql.user where user="admin";  //通过指令删除一个用户
+set password for username@'ip'=password("123456");  //管理源修改其他客户端的密码
+mysqldump -uroot -p123456 db1 > /db1.sql   //备份数据库中的某个库
+musqldump -uroot -p123456 -A > /root/db.sql  //完全备份
+mysqldump -uroot -p123456 -B db1 db2 > /root/db.sql  //备份指定多个库
+mysql -uroot -p123456 db1 < db1.sql   //还原
+create database db5; //创建一个库
+use db5;
+source /root/db1_user.sql  //将db1_user.sql数据库还原到当前库下
+binlog  //二进制日志记录除查询值为的sql命令(statement row mixed)   
+生成默认日志 //var/lib/mysql/hostname-bin.000001  //每个文件最大瞎子为500m
+mysqlbinlog  //查看binlog的指令
+mysqlbinlog --start-positon={at}  --stop-positon={end_log_pos} | mysql -uroot -p123456 日志名
+mysqlbinlog --start-datetime="2018-06-22 15：15：15" --stop-datetime="2018-06-28 15:15:15" /mydb
+>flush logs; //重新生成binlog日志
+systemctl restart mysqld //重起时更新日志文件
+mysql -uroot -p123456 "ser.000005"  //删除日志
+rm 0-rf /mydb/plj.000005   //删除日志指定前
+reset master;  //删除之前生成的私哟有
+show master tauts;  //查看再用的日志文件和指定
+binloginnoDB/XtraDB  //安装配置
+rpm -ivh libev-4.15-1.el6.rf.x86_64.rpm   //安装软件包
+rpm -ivh prcona-xtrabackup-24-2.4.7-1.el7.x86_64.rpm    //安装软件包
+sys  //系统运行参数
+performance_schema   //库表信息
+mysql  //用户授权库
+innobackupex --user root -p 123456 allbak f show master status; //查看再用的binlog
+show master status; //查看再用的binlog
+innobackupcx  --user root --password 654321 /allbak --no-timestamp  //备份数据
+innobackupex --user root --password 654321 --databases="buydb mysql" /allbak --no-timetamp  //备份数据指定buydb库&&mysql库
+innobackupex --user root --password 654321 --datebases="buydb mysql" /allbak --no-timetamp  //备份数据指定buydb库&&mysql库
+--apply-log;  //重置日志
+innobackupex -user root --password 123456 --apply-log /buyfull  //清空日志
+systemctl stop mysqld  //停止服务
+rm -rf /var/lib/mysql/dba/* //清除dba库的命令
+innobackupex --user root --password 123456 --copy-back /buyfall  //还原
+chown -R mysql:mysql /var/lib/mysql  //修改权限
+innobackupex --user root --password 123456 --databases="mysql sys" /kk -on-timestamp  //创建库完全备份
+innobackupex --user root --password 123456 --databases = "mysql sys" --incremental /kk incremental-basedir=/kk1 --no-timetamp   //创建增量备份 
+innobackupex --user root --password 123456 --databases="mysql sys"  --apply-log /klk //同步日志
+innobackupex --user root --password 123456 --databases="mysql sys" --apply-log redo-only /klk --incremental-dir="klk1"  //恢复增量备份，以klk为标准恢复klk1同步日志
+innobackupex -user root -password 123456 --databases="mysql sys" --redo-only /klk --incremental-dir="klk2" //恢复增量备份以klk为标准
+innobackupex --user root --password 123456 --databases="mysql sys" --copy-back /klk  //恢复完全备份  
+创建表结构
+>use database db;  //进入到丢失库数据的库
+>create table db(id int); //创建丢失数据库结构
+>alter table  db.db discard tablespace; //删除表空间
+innobackupex --user root -password 654321 --databases="db" --apply-log --export /klk  //到出表信息
+cd /klk/db/a.{ibd,cfg,exp} /var/lib/mysql/db/  //拷贝表信息文件
+>chown mysql:mysql /var/lib/mysql/db/a.*  //给表
+>alter table gamedb.a import tablespace; //导入表空间
+
+
+
+
+

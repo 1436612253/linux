@@ -1,0 +1,70 @@
+mysqldump  //备份命令
+musql  //数据还原
+使用binlog日志增量备份
+安装第三方软件体荣innobackupex命令做增量备份
+时间v备份的目的(管理员 使用者)硬件损坏 
+物理备份
+cp -rf /var/lib/mysql /opt/mysqldir.bak   
+cp -rf /var/lib/musql/mysql /opt/mysql.bak
+cp -rp /var/lib/mysql/bbsdb/t1*  /opt/
+innodb  //物理备份需要备份事物日志
+tar -zcvf mysql.tar.gz /var/lib/mysql/* 
+逻辑备份
+执行备份操作时，根据备份的库表产生对应的sql命令，把sql命令存储到指定的文件里。
+本分
+    一台服务器
+    一个数据库的所有的数据v
+    一张表的所有数据
+只备份新产生数据
+差异备份  ：备份完全备份后所有产生的数据
+增量备份  ：备份上次备份后艘游新长生的数据
+脚本+计划任务
+备份频率&备份策略
+备份时在数据闲时备份//备份会可能导致锁表
+完全+增量
+完全+差异
+mysqldump -uroot -p654321 db1 > /db1.sql  //备份指定库
+mysqldump -uroot -p654321 -A > /root/db.sql  //完全备份
+mysqldump -uroot -p654321 -B db1 bd2 > /root/db.sql  //备份指定多个库
+mysql -uroot -p654321 db1 < db1.sql  //还原库
+
+create database db5;  //创建一个库
+use db5;  //进入到库
+source /root/db1_user.sql //将db1_user.sql的数据还原到当前库下
+binlog  //二进制日志 记录除查询之外的sql命令
+--------------------
+ |statement
+ |row
+ |mixed
+---------------------------------------------------------------------------------
+server_id=50
+log-bin     && log-bin=/root/bins   //启用日志&&指定目录选项
+binlog_format='mixed'  //记录修改修改条目，sql命令
+-----------------------------------------------------------------------------/etc/my.cnf
+
+生成默认日志 /var/lib/mysql/hostname-bin.000001  //每个文件最大限制为500m
+mysqlbinlog  /软件
+执行binlog日志恢复数据
+在命令行中
+mysqlbinlog  --start-position={at} --stop-positon= {end_log_pos}| mysql -uroot -p123456 日志名
+mysqlbinlog xxx.0000001   //抓取at 的命令
+musqlbinlog --start-datetime="2018-06-22 15：15：15" --stop-datetime="2018-06-28 15:15:15"  /mydb/xxx.000001  //通过时间输出
+
+>flush logs; //重新生成binlog日志
+systemctl restart mysqld  //重新生成binlog日志
+mysqldump --flush-logs   //重新生成binlog日志
+mysql -uroot -p1234656 -e 'flush logs' //重新生成binlog日志
+purg master logs to "plj.000005" //删除000005日志
+rm -rf /mydb/plj.000005  //删除日志指定前
+reset master;  //删除当前所有生成当前第一个
+show master status;//查看再用的
+binloginnoDB/XtraDB  //安装配置innobackupex
+ rpm -ivh  libev-4.15-1.el6.rf.x86_64.rpm  //安装里来包
+rpm -ivh percona-xtrabackup-24-2.4.7-1.el7.x86_64.rpm //安装提供程序包
+sys //系统运行参数
+performance_schema  //库表信息
+mysql //用户受权库
+innobackupex --user root -p 123456 /allbak f
+show master status;//查看再用的binlog
+
+

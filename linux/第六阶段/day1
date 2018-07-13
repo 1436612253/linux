@@ -1,0 +1,46 @@
+boot grup/grup.confseis
+6修改
+内核行添加
+selinux=0 禁用THEL(6-7) gruep.cfg
+修改密码
+在引导才到e进入编辑模式
+再找到kenel编辑在最后添加single
+b
+7修改 
+/etc/sysconfig/grub
+GRUB_CMSLINE_LINUX="selinux=0"
+grub2-mkconfig -o /boot/grup/grup.conf //配置greb2/greb生成配置文件
+biosdevname=0 net.if
+
+
+
+names=0 //修改网卡名为eth(x)使用于RHEL7
+
+rc.d
+所有的服务都放在init下
+init.d//所有服务
+xinetd //启动服务
+chkconfig --list
+runlevel
+chkconfig servername off
+chkconfig config --level      2345       sshd   on设置开机启动级别
+ 【指令】                         【运行级别】      【程序】 【状态】
+echo -e "/x1b[24mok"
+/etc/xinetd.d/rsync
+systemd
+NetworkManager
+支持基本网络配置、虚拟vlan、bonds、ipv6等功能
+可以通过命令行设置
+可以通过图形设置
+可以通过TUI设置
+network
+/etc/init.d/networkrestart  //启动网络服务的脚本
+DEVICE=networkname
+ONBOOT=“yes”
+
+for i in nat filter  security raw mangle ;do iptables -t ${i} -F;iptables -t ${i} -X;rmmod iptable_${i};done //上出防火墙的配置
+iptables-save //查看防火墙的配置
+sysctl -w net.ipv4.ip_forward=1
+iptables -t nat -I PREROUTING -d  176.121.212.51 -p tcp --dport 6022 -j DNAT --to 192.168.4.1:22
+
+

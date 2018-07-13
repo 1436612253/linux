@@ -1,0 +1,52 @@
+四表
+filter //数据v控制
+nat //数据转发
+mangle
+raw
+五链
+INPUT
+OUTPUT
+FORWARD
+PREROUTING
+POSTROUTING
+
+四种处理方式
+REJECT //拒绝的
+DROP //丢弃的
+ACCEPT //同意
+LOG //记录的
+iptables [-t表明] 选项 [连名] [条件] [-j处理]
+----------------
+A 上插入
+I 下插入
+L列出规则
+-n 以数字形式显示地址，端口号等信息。
+-D 删除连内指定序列的内容的一条规则
+--line-unmbers  显示规则行号
+-F 清空所有规则
+-p为指定的链设置为默认规则
+-s 源
+--d 目标
+-P协议
+-i 接受数据v的网卡、-o转发数据的网卡
+-sport 源端口 -dport 目标端口
+--icmp-type ICMP类型
+-------------------------
+iptabel -t filter -I INPUT -p icmp -j ACCEPT  //在filter表中的INPUT链中添加允许icmp协议
+iptable -L INPUT --line--numbers  //显示INPUT表中的规则并显示规则的优先级别
+iptable -P INPUT DROP  //设置默认规则
+iptables -t filter -I INPUT -p tcp --dport 80 -j REJECT  //在filter表中INPUT链拒绝TCP 协议 走80端口出去
+iptable -t filter -I INPUT  -d 192.168.2.10 -p tcp --dport 80 -j REJECT  //限制访问192.168.2.10目标主机
+echo 0 > /proc/sys/net/ipv4/ip_forward   //开启路由转发功能  当前有效
+----
+/etc/sysctl.conf
+net.ipv4.ip_forward=1
+----永久修改配开启路由转发功能
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP  //拒绝ping请求包
+iptables -m //拓展规则
+iptables -A INPUT -p tcp --dport 22 -m --mac-source 52:54:00:D5:AC:17 -j DROP  //禁止52：的mac地址链接22端口
+iptables -A INPUT  -p tcp -m multiport --dports 20:22,25,80,110,143,16501:16800 -j ACCEPT //批量配置宽口控制
+iptables -A INPUT  -p tcp -dport 22 -m iprange --src-range 192.168.4.10-192.168.4.20 -j ACCEPT  //批量限制
+iptables -t nat -A POSTROUTING -s 192.168.4.0/24 -p tcp  --dport 80 -j SNAT --to-source 192.168.2.5  //做地址转发
+service iptables save  //存储为永久配置
+/var/log/httpd/access_log //防火墙的配置文件

@@ -1,0 +1,47 @@
+版本控制
+svnserver 
+git
+yum -y install subersion-libs     //安装版本控制软件
+svnadmin  create /var/svn/project      //创建svn仓库
+/usr/lib/systemd/system/xxx.server     //serverctl   继承控制
+svn import . file:///var/svm/project/ -m "InPut file.java.jar"  //到入代码
+in file the path/conf/svmserver.conf
+-->
+anon-access = none   启动选项
+auth-access = write    启动塑选项
+passwd-db=passwd     启动选项
+authz-db = authz     启动选项
+<--
+设置pass模板配置用户
+配置authz   //文件权限管理
+继承于跟目录权限
+启动
+svnserver -d -r /var/svn/project  //启动服务指定仓库
+svn svn://192.168.4.100
+
+svnserver -d  //启动服务布指定仓库位置
+svn svn://192.168.4.100/var/svn/project  
+-d 后台执行
+-r 指定文件
+svn --username ton --password 123456 co svn://192.168.4.5 code
+svn 有属于自己的指令集
+svn add  //add mane.file
+svn mkdir //add /dir
+svn rm  //delete file&&/dir
+vim //vim
+svn diff //
+在版本被修改是不允许提交只能进行更更新后进行更新选择
+svn merge -r7:2 tuned.service   //将文件从第7个版本恢复到第2个版本
+
+svn --username tom --password 123456 -r 2 svn://192.168.2.100 dir
+多用户修改同文件同行时需要线下处理
+svnadmin dump /var/svn/proiject > project.bak //备份
+svnadmin create /var/svm/project1 < a.bak //还原
+git commit -m "xx"  使用git上传；
+git push  上传代码
+git add . 
+做rpm包
+1.文件的压缩包
+2.描述信息
+rpm-build
+

@@ -1,0 +1,93 @@
+代理
+中间的第三人 方向代理&&调度器
+  负载均衡（数据均衡）
+	高可用(解决但点故障)（web高可用）
+vartualhostvim 
+
+upstream webs{ 
+server 192.168.2.100:80; weight = 2;  //调用转发
+server 192.168.2.200:80; //调用转发
+}
+proxy_pass httpc://webs/
+论寻
+
+
+
+ip 算法ip_hash
+with-stream //1.9以后的模板
+stream{
+upstream backend   //创建连接库
+       {
+	  server 192.168.2.100:22; //2.100主机代理22端口数据
+	  server 192.168.2.200:22; //2.200主机代理22端口数据
+        }
+server{
+	  listen 12345;  //开放端口
+	  proxy_connect_timeout 1s; //连接超时
+	  proxy_timeout 3s; //断开切断
+	  proxy_pass backend;  //调转到
+	}
+}
+ab -c 2000 -n 2000 http://
+
+ulimit -a //查看所有属性
+ulimit -Hn 1000000 //硬限制
+ulimit -Sn 1000000 //软连接
+
+worker_processes 2;  //线程
+
+events{
+worker_connections 65535;允许机器
+}
+
+
+/etc/secuty/limits.confcur
+*               soft    nofile            100000
+*               hard    nofile            100000
+
+
+
+
+
+
+
+
+client_header_buffer_size    1k;        //默认请求包头信息的缓存    
+large_client_header_buffers  4 4k;        //大请求包头部信息的缓存个数与容量
+expires 1d;
+location ~*\.(txt|jpg|jpeg|gif|css|js|ico|xml)$ //缓存的正则
+{
+expires 30d; //缓存的时间
+}
+实现自定义报错
+error_page 404;//修改404报错的信息
+200 一切正常
+301 永久重定向
+302 临时重定向
+401 用户密码被将拒绝
+403 访问ip被拒绝
+404 文件不存在
+414 请求URL头部过长
+500 内部服务器错误 
+502 Bad Gateway
+
+
+
+with-stub_status_module //实施监控模块
+
+
+
+
+localtion /status
+		{
+		  stub_status on;  //打开监控实时信息功能
+		}
+127.0.0.1/status
+Reading:0 //正在读取请求
+Writing 1  //正字发送请求
+waiting:2 //等待
+gzip on;  //打开压缩
+gzip_min_length 1000;//小于1000的 不进行压缩
+gzip_comp_level 4; //压缩级别4
+gzip_types text/plain text/css application/json application/x=javacript text/
+

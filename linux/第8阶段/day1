@@ -1,0 +1,75 @@
+rm -rf /etc/yum.repos.d/*
+
+yum-config-manager --add http://192.168.4.254/rhel7
+
+echo 'gpgcheck=0' >> /etc/
+
+yum.repos.d/192.168.4.254_rhel7.repo
+
+yum clean all
+
+yum repolist
+
+panglj@tedu.cn
+
+hostname DB7
+echo 'DB7' > /etc/hostname
+搭建数据库服务器
+数据库服务的基础使用
+Mysql数据类型
+/RDBMS  |关系型
+\NoSQL  |非关系型
+/var/lib/mysql  //数据库配置文件
+tcp 3306
+一.进入数据库
+二.选择库
+三.建表
+四.插入记录
+五.断开链接
+/var/log/mysqld.log
+
+set global validate_password_policy=0;
+set global validate_password_length=6;
+alter user root@'localhost' identified by '123456'; //给用户修改密码
+show databases;  //查看库
+select database();  //查看在那个库中
+create database b; //创建名称为b的库
+drop database b; //删除库名为b的库
+show tables; //查看表
+create table tabname(name char(15),class char(1))DEFAULT CHARSET=utf8; //创建一个表两列同时指定它的字符集类型
+desc t1;  //查看表结构
+insert into t1 values("lisi","nsd1803");  //插入记录
+update ti set class="nsd";//更换字段
+drop table t1; //删除表
+show ceate table t1;//查看创建类型
+
+
+\c
+DDL
+(create alter drop)
+DML
+(insert update delete)
+DCL
+(grant revoke)
+DTL
+(commit rellback savrpoint)
+
+/etc/my.cnf  //数据库配置文件
+数据类型
+UNSINGNED 无符号类型
+整形 TINYINT(1) SMALLINT(2) MEDIUMINT(3) INT(4) BIGINT(8) 
+浮点型 FLOAT(4) DOUBLE(8)
+文本类型text/blob;
+char 定长
+varchar 边长
+枚举类型
+enum(values1,values2,varlues3) 单选
+set(values1,values2,values3) 多选
+时间
+date 日期(时(**)分(**)秒(**))
+time 时间(年(****)月(**)日(**))
+datetime 日期时间(年(****)月(**)日(**)时(**)分(**)秒(**))
+year(年(**))
+
+
+

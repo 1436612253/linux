@@ -1,0 +1,40 @@
+yum -y install chrony
+/etc/chrony
+server 0.centos.pol.ntp.org iburst   //server用户客户端指向上层NTP服务器
+allow 192.168.4.0/24 //允许那个IP或网络访问NTP
+#deny 192.168.4.1  //拒绝那个IP或网络访问NTP
+local stratum //设置NTP层次
+pssh 批量远程
+vim /etc/hosts
+-->
+ip host1
+<--
+vim /root/host.txt
+-->
+root@host1
+<--
+-A 使用密码远程其他主机
+-i 将输出显示在屏幕
+-H 设置需要的连接的主机
+-h 设置主机的列表文件
+-P 设置平法数量
+-t 设置超是时间
+-o dir 设置标准输出信息保存的目录
+-e dir 设置错误输出信息保存的目录
+-x 传递参数给ssh
+pssh -p 5 -A -i -H 'host1' -x  '-o StrictHostKeyChecking=no ' echo nihao  连接多台主机
+pssh  -p 5 -A -i -H /root/host.txt -x  '-o StrictHostKeyChecking=no ' echo nihao 连接文本中的多台主机
+
+
+/root/host.txt
+-->
+root@host1
+host2
+host3
+<--
+ssh-skygen -H '' -f /root/.sh/id_rsa  //生成非交互密钥文件
+ssh-copy-i /root/.ssh/id_rsa.pub host1 //传送密钥
+ssh -h host.txt echo hello //多用户远程
+pscp.pssh -r -h host.txt -x /etc/ /tmp  //批量远程拷贝
+pslurp -r -h host.txt -x /etc /tmp   //从远程etc 拷贝到本纪tmp
+pnuke -h host.txt test  //杀掉test程序

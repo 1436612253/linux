@@ -1,0 +1,87 @@
+netstat ltunp  //查看端口
+netstat atunp 
+ulimit -a //显示所有属性
+ulimit -Hn x //显示硬限制
+ulimit -Sn x //显示软连接
+httpd -c /path username  //创建nginx认证用户
+openssl genrsa > cert.key //创建nginx私钥
+openssl req -new -x509 -key ceat.key > cert.pem  //成成nginx公钥
+grant all on *.* lisi@user_type identified by 'passwd';  //数据库创建许可
+watch  //监控
+keytool -genkeypair -alias tomcat -keyalg RSA -keystore /usr/local/tomcat/ //tomcat配置加密传输
+varnishd -f /path/conf //启动代理服务器
+varnishd -s malloc,128m //定义varnishd缓存空间
+varnishd -s file,/var/lib/varnish_storage.bin,1G  //定义varnsh使用文件作为缓存
+varnishd  //进入到varnish
+varnish >bin req.url~.* //清楚缓存数据
+varnishlog //查看varnish日志
+varnishcsa //查看varnish日志
+svnadmin create /var/svn  //创建个仓库
+svn import /path/file file:///var/svn -m "InPutfile"  //添加代码到仓库
+svn add //添加仓库
+svn mkdir /mkdir //创建仓库文件
+svn diff //查看区别
+svn -r7:2 tuned.service  //恢复到前面版本
+svn --username=tom --password= 123456 -r 2 svn://192.168.2.100 dir
+svnadmin dump /var/svn/project.bak  //备份
+svnadmin create /var/svn/projct<a.bak  //还原
+git commit -m "InPut"
+git push
+git add 
+rpm -build  //创建rpm包
+rpmbuild -ba file.spec  //创建包名
+yum -y install  gcc make pcre-devel zlib-devel openssl-devel  //nginx 的依赖
+pssh -p 5 -A -i H 'host1' -x '-o StrictHostKeyChecKing=no' echo nihao  //远程到host1中的主机
+pscp.pssh -r -h host.txt /etc/ /tmp //批量拷贝
+pslurp -r -h host.txt /etc/ / 拷贝到本地
+pnuke -h host.txt test  //杀掉一个进程
+passwd -l users  //锁定一个用户
+passwd -U users  //解锁一个用户
+passwd -S users //查看用户
+chage -L users //查看用户身份信息
+chage -E time user //修改用户时间
+chattr +i  //锁定文件
+chattr +a //锁定允许追加
+chattr  - //取消锁定
+chcon -t xyz /file  //修改文件标签
+md5sum filename //创建md5码
+vimdiff file file //打开两个文件案校验区别
+gpg -c file //加密文件
+gpg -d file //解密对成加密
+gpg --gen-key //生成密密钥
+gpg -a --export filename.txt //导出公钥
+gpg --import filename.txt //导入公钥
+gpg -e -r setname filenam //对文件进行加密
+gpg -d file > files //解密到files中
+gpg -b filename //给文家创建签名
+aide --init   //开始校验aide设置的文件
+aide --chck  //查看发生变化的详情
+nmap -sP //查看ICMP扫描
+nmap -sS //做tcp扫描(版开)
+nmap -sT //做tcp扫描(全开)
+nmap -sU //做udp扫面
+nmap -A //目标系统全面分析
+tcpdup -A host -ip and tcp port x //抓包
+tcpdup -A -i ifname host ip and tcp port x //从端口抓包
+base64 -d filename //解编码
+base64 filename //转编码
+审计
+auditctl -s //查询状态
+auditctl -D //删除所有规则
+auditctl -l //查看规则
+auditctl -w path -p rwxa -k key-name //创建审计内容和审计目标
+tailf //调转到末尾
+ausearch -k  ssh_dconfig -i //以易读方式读取日志
+ausearch -if filename  //以易读方式读取文件爱你
+ab -n numbe -c numbe http://ip/   //模拟并行访问
+mysql -uroot -ppasswd //登陆数据库
+mysql -uroot -h ip -ppasswd //远程登陆数据vku
+set password for lisi@'localhost'=password('123456');
+select user,host,passord from mysql.user;  //查看mysql库中user表的用户主机密码信息
+mysqldump -uroot -predhat databasen_name... > filename.sql //存储指定的表单
+mysqldump -uroot -ppasswd --all-databases > /root/data.sql //存储整个数据库
+su -c /path/name username   //以username启动/path/name服务
+diff file files  //查看区别
+diff -u file files //产看如何更正区别
+diff -arNu /path /paths //如何更正二进制区别
+patch -p1 < ../sourcer.patch  //打补丁

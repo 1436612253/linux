@@ -1,0 +1,55 @@
+-------------交换机路由器配置-------------------------
+#
+copy running-config startup-config //把内存中的配置写入到配置文件中
+write //写入到内存中等同
+show running-config //查看运行中的配置信息
+reload //重新加载内存配置
+show vlan brief //查看vlan的信息
+show interfase fastEthernet 0/3 switchport //查看串口信息
+show mac-address-table //查看mac地址表
+--------------------------------------------------------------
+(config)#
+hostname //修改名称
+enable password 123//设置进入特权模式的密码为123
+noipdome-lcokup //取消域名查询
+line console 0 //配置console口
+noipdome-lcokul //取消域名查询
+vlan 5 //创建vlan 5
+interface vlan 5 //进入到vlan 5的虚拟端口中
+ip difault-gateway 192.168.1.254//配置网官
+interfase rangr fastEthernet 0/1-2 & 0-1 ,f0-2 //进入多个端口配置统一参数
+route ospf 1 //启动动态陆游开启进程1进入到(config-router)#
+(config-router)#network 192.168.1.0 0.0.0.255 area 1 //发布自己知道的网络段：子王使用反码
+ip nat inside source static 192.168.1.0 100.0.0.1  //映射到外网
+access-list 1 permit 192.168.1.0 0.0.0.255 //创建控制列表
+ip nat inside source list 1 interface g0/1 overload //创建PAT的访问列表为1
+----------------------------------------------------------------------------
+(config-if-range)#
+switchport mode trunk //修改当前的所有端口为trunk模式
+channel-group 1 mode trunk //绑定以太链路|聚合链路
+(config-line)#name name //给vlan创建一个名称
+
+
+--------------------------------------------------------------------
+(config-if)#
+ip address ip //配置ip地地址
+switchport access vlan 5 //给端口添加入vlan 5的区域中
+switch trunk allowed vlan  remove 5 //禁止vlan5在当前接口通讯 
+switch trunk allowed vlan add 5  //将允许vlan5在当前接口中通讯
+shutdown //关闭当前的接口
+no shutdown //启动当前的接口
+exit //退出当前模式
+end//推出到特权模式
+switchport trunk encapsulation dotlq //三成交换机使用trunk时选择数据封装类型
+no switcport //关闭交换机接口 //启用路由接口
+ip nat outide //内网出去的口 //数据出去的口
+ip nat intide //外网出去的口 //数据进入的口
+---------------------------------------------------------------------
+(config-line)#
+loggin synchronous  //弹窗不干扰控制台
+exec-timeout 0 1 //锁屏时间
+----------------------------------------------------------------------
+
+
+
+

@@ -1,0 +1,49 @@
+将不同网段的地址互通
+转发不同网络数据的功能
+路由器完成
+识别数据包的目标IP地址
+2911路由
+静态路由
+路由表:
+一:路由配置信息
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+二:现有路由表
+   192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.1.0/24 is directly connected, GigabitEthernet0/1
+-----------------------------------------------------------------直链路由//自动产生
+L       192.168.1.254/32 is directly connected, GigabitEthernet0/1
+     192.168.4.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.4.0/24 is directly connected, GigabitEthernet0/0
+-----------路由地址----------------------------------------转发端口----直链路由 //自动产生
+L       192.168.4.254/32 is directly connected, GigabitEthernet0/0
+
+
+|	S    192.168.2.0/24 [1/0] via 192.168.1.2
+V	S*   0.0.0.0/0 [1/0] via 192.168.2.1  //静态默认路由
+------------------------------------------------------------静态路由
+
+路由器相同端口间不能用相同的网段
+ip route 目标地址 : 下一跳
+
+路由器相同端口间不能用相同的网段
+默认路由 0.0.0.0 0.0.0.0
+
+三层交换机启动路由功能能
+ip routing //启动路由功能 
+三层交换机的接口是二层交接口
+(config-if)#switchport trunk encapsulation dot1q //三层交换机配置trunk 前选择的封装类型
+(config-if)#no switchport //关闭交换机接口  //转换成路由接口
+动态路由
+open shortest path first (开放式最短路径优先)
+优点:减少管理任务
+缺点:占用带宽
+ospf 划分多个区域
+使用动态路由
+Router(config)#router ospf 1//开启动态路由协议
+Router(config-router)#network 192.168.4.0 0.0.0.255 area 1 //公布网络

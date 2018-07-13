@@ -1,0 +1,66 @@
+mysql
+______________________________
+程序功能  ---> 指令
+sql接口：系统资源调度 -->把sql命令传递给mysql进程
+分析器：--> 分析执行的sql语法是否右语法错误
+优化器：--> 以最省系统资源的方式执行
+查询器：---> 查询内存中的缓存是否存在，不存在调用硬盘
+show variables like    "关键字"; //查看系统边量
+show global status like "关键字";  //查看状态
+flush 
+set [global] 边量名="值"; //临时
+/etc/my.cnf  //永久生效                 
+为所有线程缓存打开表的数量
+table_open_cache 2000
+"%cache%"  //与缓存相关的关键字
+query_cache_type=0 | 1 | 2 ;  //0不缓存1缓存2值缓存sql_in_cache.
+select sql_in_cache * from *;  //缓存本次查询到内存中
+| Qcache_hits		 | 0       |  缓存碰撞次数
+| Qcache_inserts		 | 0       |  缓存量
+| Qcache_lowmem_prunes	 | 0       |  清除缓存一次增加一
+程序员编写访问sql的复杂导致处理数度慢。
+在数据开启慢查询日志,记录超过指定时间显示查询结果的sql命令;
+binlog日志 错误日志(/var/log/mysql.log)  查询日志(记录所有命令)  慢日志(只记录超时时间显示查询结果的sql命令)
+日志的器用查看：
+/etc/my.cmf
+
+general-log  //启用查询日志
+genetal-log-file= //指定名
+
+slow-query-log //启用慢查询日志
+slow-query-time=  //指定超时时长 默认时长10s
+log-queries_not_wsing_indexes=1 //记录没有启用做查询的
+mysqldumpslow  localhost-slow.log  //超时的指令
+
+  主	       	 从
+------------------------------------
+      代理器
+ 写<---  ||  ---->读
+       V
+   mysql中间件
+maxscale  //中间件包名
+----------------------------------------------------------------------
+/etc/maxscale.cnf  //中间件配置文件 --->
+cp [server1]--set ip
+
+threads=auto  //修改为自动线程
+address=192.168.4.10  //给后端服务器配置ip
+---
+[MySQL Monitor]
+user=scalemon  //添加用户用俩识别主从
+passwd=123456  //配置密码
+---
+#[Read-Only Listener]  //注释掉只读监听
+---
+[Read-Write Service]
+servers=server1,server2 //读写服务的主机
+user=maxscale //添加用户
+passwd=123456 //配置密码
+---
+[MaxAdmin Listener]  //管理员监听
+port=4099  //添加端口给管理员
+------------------------------------------------------------------------
+grant replication slave, replication client on *.* to scalemon@'%' identified by “123456”; // 创建监控用户
+
+grant select on mysql.* to maxscale@'%' identified by "123456"; // 创建只读用户
+maxadmin -uadmin -pmariadb -P4099  //访问中间件

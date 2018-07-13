@@ -1,0 +1,35 @@
+firewall-cmd --permanent --zone=public --add-service=http //给防火墙添加规则
+firewall-cmd --zone=block --add-source=172.25.0.10 //source 添加到block区
+严格:将默认区域为drop,将允许的服务器放到trusted
+宽松:默认区域为trusted,将禁止的用户放到drop & block
+端口：编号,标识作用，标识每个服务器
+防火墙端口转发
+firewall-cmd --permanent --zone=public --add-forward-port=port=5423:proto=tcp:toport=80
+配置高级连接`
+------------------------------------------------------
+配置聚合连接（网卡绑定 、 链路聚合）
+物理网卡    物理网卡
+  虚拟网卡（team）
+----------------------------------
+----------------------------------
+1创建虚拟网卡
+轮询（roundrobin）的流量负载均衡
+热备（activebackup）
+nmcli connection add type team con-name team0 ifname team0 autoconnect yes config '{"runner":{"name":"activebackup"}}'
+2.添加
+nmcli connection add type team-slave con-name team0-1 ifname eth1 master eth0 
+nmcli connection add type team-slave con-name team0-2 ifname eth2 master team0
+3.配置地址
+nmcli connection modify team0  ipv4.method manualipv4.addresses 192.168.1.1/24 connection.autoconnect yes
+4.激活
+nmcli connection up team0
+nmcli connection up team0-1
+nmcli connection up team0-2
+验证
+teamdctl team0 state //查看网卡状态
+----------------------------------------------
+ipv4 32位4字节长度  用.分隔4部分转换为1进制来表示
+ipv6 128个二进制，用冒号分隔八部分
+'{"runner":{"name":"activebackup"}}'
+int main(int arge,char *argv[])
+

@@ -1,0 +1,51 @@
+create table name select * from tabname where ...;   //复制一张表中的某些数据
+多表查询
+链接插叙的种类
+迪卡尔集（连表）
+(交叉链接(对表查询) 自然链接（自身查询） 内链接 外链接(做链接，右链接))
+select 字段名 from 表名 where 条件(select 字段名 from 表名 where 条件)； //嵌套查询
+select name from users where pid < (select agv(uid) from users);  //嵌套查询
+select name from data.tab1,data.tab2;  //交叉查询
+select 字段名列表 from 表名1 left join 表名2 on 条件；//左链接 以左为主将两张表链接在一起
+select 字段名列表 from 表名1 right join 表名2 on 条件; //右链接 以右为主将两张表链接在一起  
+//搭建mysqladmin
+cp config.sample.inc.php  config.inc.php//拷贝配置文件修改配置
+
+
+grant all on *.* to lisi@192.168.4.254 identified by '123456';  //用户受权
+mysqladmin -uroot -p password '123456'  //修改密码
+破解数据库
+停服务
+vim /etc/my.cnf
+skip-grant-tables  //跳过密码验证
+
+host user authentication_string
+//数据库用户表的字段
+update mysql.user set authentication_string=password("") where user="root" and host="localhost";
+//更新mysql.usr表 authentication_string 的值 user=root和host=localhost的列
+flush privileges;  //更新受权
+systemctl restart mysqld  //重启服务
+grant all on   //给与用户最大权限
+grant select,insert,update,delete on //给用户权限
+grant select,update(name,uid) on   //指定字段权限
+grant usage on   //不给与用户权限
+%  //代表网络中的所有主机
+with grant option  //允许授权                      
+show grants //产看自身的权限
+mysql //存储授权信息
+user  //用户信息
+db //库权限
+tables_priv //表的权限
+columns_priv  //字段权限
+show grants for yaya@'%'  //查看用户的授权信息
+show grants for 用户名@'客户端地址'  //查看是否有在某地址授权某地址
+select * from mysql.user where user='admin' \G;
+\G以列显示
+update mysql.tables_priv set Tables_priv="select,insert" where user="db1";  //修改权限
+flush privileges;  //更系
+revoke 授权列表 on 数据库 from admin@'192.168.4.254';  //修改用户授权 
+revoke grant option on *.* from admin@'192.168.4.254' ; //修改admin用户的授权
+drop user admin@'192.168.4.254';//删除一个用户
+delete mysql.user where user="admin";
+set password=password("123321");
+set password for username@'ip'=passwotd("123321");  //管理源修改其他客户端的密码

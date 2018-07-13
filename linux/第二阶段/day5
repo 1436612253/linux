@@ -1,0 +1,45 @@
+实现两机器之间的数据共享
+Samba
+SMB共享
+SMB(tcp:139)通讯协议  CIFS(tpc :445)传输协议
+yum -y install samba //安装smb共享服务
+systemctl start smb //启动服务
+访问samba必须通过samba认证
+samba共享帐号:默认情况下，专门用于访问samba共享时验证的用户与密码
+与系统用户同一用户|却又有独立密码
+pdbedit -a name //添加本地权限
+pdbedit -x name //删除用户
+pdbedit -L //查看本地列表
+配置文件
+/etc/samba/smb.conf
+[global] 
+workgrop= //全剧配置
+---------------------------------------
+[common]
+  path = /common
+[devpos]
+path = /devops
+write list = usernaem
+----------------------------------------
+共享文件权限（rw）（ro）
+multiuser机制 //专门位普通用户设计,为客户端设计 必要时可以通过命令临切换用户权限以获得提升权限
+在用户身份后面田间multiuser
+-------------------------------------------------------------------
+multiuser 的配置root用户无法提权限
+挂载字段
+//192.168.4.11/common   /file    cifs   defaults,user=lisi,pass=123,multiuser,sec=ntlmssp,_netdev  0 0
+cifscreds add -u zhangsan 192.168.4.11
+
+--------------------------------------------------------------------
+再加多个sec=ntlmssp//局域网安全
+echo "//172.25.0.11/common  /mnt/samba  cifs-utils defaults,user=zhangsan,pass=123,_netdev,multiuser,sec=ntlmssp 0 0" >> /etc/fstab
+cifs //格式
+smbclient -U smb1 //172.25.0.11/comment //连接到smb1
+echo "//172.25.0.11/common  /mnt/samba  cifs  defaults,user=harry,pass=123456,_netdev 0 0" >> /etc/fstab
+NFS共享linux与linux 之间的文件传输
+Network File System
+协议NFS(tcp/udp 2049)  RPC(tcp/udp 111)
+nfs-utils
+nfs-server
+rpm -qa //显示所有的包
+主配置文件/etc/exports
